@@ -29,6 +29,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { LayoutComponent } from './layout/layout.component';
+import { RouterModule } from '@angular/router';
 
 const materialModules = [
   MatAutocompleteModule,
@@ -62,8 +64,8 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [],
-  exports: [...materialModules],
-  imports: [CommonModule, ...materialModules],
+  declarations: [LayoutComponent],
+  exports: [...materialModules, LayoutComponent],
+  imports: [CommonModule, ...materialModules, RouterModule],
 })
 export class SharedModule {}

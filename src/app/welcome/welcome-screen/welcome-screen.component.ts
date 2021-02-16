@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
 
@@ -17,7 +18,8 @@ export class WelcomeScreenComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
-    private readonly snackbar: MatSnackBar
+    private readonly snackbar: MatSnackBar,
+    private readonly router: Router
   ) { 
     
     this.userFormGroup = this.formBuilder.group({
@@ -38,18 +40,13 @@ export class WelcomeScreenComponent implements OnInit {
       const userData = this.authService.logIn(email, password); 
       
       if (userData) {
-        // TODO: redirect
+        this.router.navigate(['/prescriptions']);
       }
       else {
-       
         this.snackbar.open('Invalid credentials', 'Dismiss', {
           duration: 5000
         });
       }
-         
-    }
-    else {
-      console.log("form group invalid");
     }
   }
 

@@ -1,0 +1,27 @@
+<nav class="navbar">
+
+    <div class="hamburger-menu-container">   
+        <a class="navbar-brand" href="#">
+            <div class="brand-logo"></div>
+        </a>
+    
+        <button mat-button class="primary" class="hamburger-menu" (click)="toggleNavbar()">
+            <svg viewBox="0 0 100 80" width="40" height="20" >
+                <rect width="120" height="15" fill="#4f4f4f"></rect>
+                <rect y="30" width="120" height="15" fill="#4f4f4f"></rect>
+                <rect y="60" width="120" height="15" fill="#4f4f4f"></rect>
+            </svg>
+        </button>
+    </div>
+
+    <div class="links-container" *ngIf="navbarIsCollapsed === false">
+        <button mat-button [routerLink]="['/prescriptions']" >Home</button>
+        <button mat-button class="primary logout" (click)="logOut()">Log out</button>
+    </div>
+    
+</nav>
+
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
+
