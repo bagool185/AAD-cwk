@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PrescriptionsService } from '@services/prescriptions.service';
 import { IPrescription, PrescriptionStatus } from 'src/app/shared/models/prescriptions';
 
 @Component({
@@ -10,22 +11,8 @@ export class PrescriptionsScreenComponent implements OnInit {
 
   prescriptions: IPrescription[];
 
-  constructor() { 
-    this.prescriptions = [
-      {
-        dosage: '100mg',
-        medication: 'Lavodopa',
-        instructions: '2 tablets by mouth 3 times daily for one month. Take with food',
-        status: PrescriptionStatus.Active
-      },
-      {
-        medication: 'Amlodipine',
-        dosage: '5mg',
-        instructions: 'One tablet daily',
-        status: PrescriptionStatus.Expired
-      }
-    ]
-
+  constructor(private readonly prescriptionService: PrescriptionsService) { 
+    this.prescriptions = prescriptionService.getAll();
   }
 
   ngOnInit(): void {
