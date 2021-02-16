@@ -23,7 +23,9 @@ export class WelcomeScreenComponent implements OnInit {
   }
 
   logIn() {
-
+    if (this.userFormGroup.valid) {
+      
+    }
   }
 
 }

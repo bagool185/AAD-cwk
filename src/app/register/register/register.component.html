@@ -1,0 +1,44 @@
+
+<mat-card class="form-card">
+  <mat-card-content>
+    <h1>Register</h1>
+
+    <form [formGroup]="userFormGroup" (ngSubmit)="register()">
+        <mat-form-field class="full-width-input">
+            <input matInput type="email" placeholder="Email" formControlName="email" required>
+            <mat-error>
+            Invalid email address
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+            <input matInput type="text" placeholder="Full name" formControlName="fullName" required>
+            <mat-error>
+            The name is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Password" formControlName="password" minlength="6" required>
+            <mat-error>
+            Password is required and it must be at least 6 characters long
+            </mat-error>
+        </mat-form-field>
+
+         <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Confirm password" formControlName="passwordConf" minlength="6" required>
+            <mat-error>
+            Password confirmation doesn't match the original password
+            </mat-error>
+        </mat-form-field>
+
+        <button type="submit" class="button" style="margin-top: 2em; height: 4em" [disabled]="userFormGroup?.invalid">Register</button>
+        
+        <div style="margin-top: 2vh">
+            Already registered? 
+            <a routerLink="/welcome" class="next-line" routerLinkActive="active">Log in</a>
+        </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

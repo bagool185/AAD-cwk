@@ -51,37 +51,53 @@ a {
     color: $primary-color-light;
 
     &:hover {
-        color: $primary-color-dark
+        color: $primary-color-dark;
+        font-weight: bold;
+
     }
 }
 
+// Form controls
+
 .button {
-  align-items: center;
-  background-color: $primary-color-dark;
-  border: 1px solid $primary-color-dark;
-  border-radius: 3px;
-  color: $primary-color-text;
-  cursor: pointer;
-  display: flex;
-  font-weight: 500;
-  height: 30px;
-  justify-content: center;
-  margin-right: 5px;
-  transition: .15s color, .15s background-color;
-  width: 100%;
-
-  &:hover {
-    background-color: $primary-color-text;
-    color: $primary-color-light;
-  }
-
-  &:disabled {
-    background-color: $divider-color;
-    border: 0;
-    cursor: unset;
+    align-items: center;
+    background-color: $primary-color-dark;
+    border: 1px solid $primary-color-dark;
+    border-radius: 3px;
+    color: $primary-color-text;
+    cursor: pointer;
+    display: flex;
+    font-weight: 500;
+    height: 30px;
+    justify-content: center;
+    margin-right: 5px;
+    transition: .15s color, .15s background-color;
+    width: 100%;
 
     &:hover {
-      color: $primary-color-text;
+        background-color: $primary-color-text;
+        color: $primary-color-light;
     }
-  }
+
+    &:disabled {
+        background-color: $divider-color;
+        border: 0;
+        cursor: unset;
+
+        &:hover {
+            color: $primary-color-text;
+        }
+    }
+}
+
+
+.form-card {
+    max-width: 450px;
+    margin: 0 auto;
+    margin-top: 10%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
 }
