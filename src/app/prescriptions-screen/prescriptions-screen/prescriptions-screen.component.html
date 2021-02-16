@@ -1,1 +1,13 @@
-<p>prescriptions-screen works!</p>
+<h1>Active</h1>
+
+<div class="prescriptions-container active" *ngFor="let prescription of getActivePrescriptions()">
+    <p class="prescription-title">{{prescription.medication}} - {{prescription.dosage}}</p>
+    <p class="prescription-description">{{prescription.instructions}}</p>
+</div>
+
+<h1>Expired</h1>
+
+<div class="prescriptions-container expired" *ngFor="let prescription of getExpiredPrescriptions()">
+    <p class="prescription-title">{{prescription.medication}} - {{prescription.dosage}}</p>
+    <p class="prescription-description">{{prescription.instructions}}</p>
+</div>
