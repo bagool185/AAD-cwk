@@ -1,2 +1,30 @@
-<h1>Hello There!</h1>
 
+<mat-card>
+  <mat-card-content>
+    <h1>Hello There!</h1>
+
+    <form [formGroup]="userFormGroup" (ngSubmit)="logIn()">
+        <mat-form-field class="full-width-input">
+            <input matInput type="email" placeholder="Email" formControlName="email" required>
+            <mat-error>
+            Invalid email address
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Parola" formControlName="password" minlength="6" required>
+            <mat-error>
+            Password must be at least 6 characters long
+            </mat-error>
+        </mat-form-field>
+
+        <button type="submit" class="button" style="margin-top: 2em; height: 4em" [disabled]="userFormGroup?.invalid">Log in</button>
+        
+        <div style="margin-top: 2vh">
+            Not a member? 
+            <a routerLink="/register" class="next-line" routerLinkActive="active">Register</a>
+        </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>
