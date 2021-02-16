@@ -16,6 +16,7 @@
 
     <div class="links-container" *ngIf="navbarIsCollapsed === false">
         <button mat-button [routerLink]="['/prescriptions']" >Home</button>
+        <button mat-button [routerLink]="['/add-prescription']" >Add prescription</button>
         <button mat-button class="primary logout" (click)="logOut()">Log out</button>
     </div>
     

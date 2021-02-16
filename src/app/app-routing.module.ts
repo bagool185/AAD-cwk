@@ -21,6 +21,11 @@ const routes: Routes = [
     path: 'prescriptions',
     loadChildren: () =>
       import('./prescriptions-screen/prescriptions-screen.module').then(m => m.PrescriptionsScreenModule)
+  },
+  {
+    path: 'add-prescription',
+    loadChildren: () => 
+      import('./add-prescription/add-prescription.module').then(m => m.AddPrescriptionModule)
   }
 ];
 
