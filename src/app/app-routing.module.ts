@@ -26,6 +26,11 @@ const routes: Routes = [
     path: 'add-prescription',
     loadChildren: () => 
       import('./add-prescription/add-prescription.module').then(m => m.AddPrescriptionModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'welcome',
+    pathMatch: 'full'
   }
 ];
 

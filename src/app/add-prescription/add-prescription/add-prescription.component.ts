@@ -9,9 +9,10 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 export class AddPrescriptionComponent implements OnInit {
 
   prescriptionRequestForm: FormGroup;
-  medications: FormArray;
+  medications!: FormArray;
 
   constructor(private readonly formBuilder: FormBuilder) { 
+
     this.prescriptionRequestForm = this.formBuilder.group({
       medications: this.formBuilder.array([ this.createItem() ])
     })
@@ -37,4 +38,12 @@ export class AddPrescriptionComponent implements OnInit {
     this.medications.removeAt(index);
   }
 
+  addPrescription() {
+    // TODO
+  }
+
+  getMedicationsControls() {
+    this.medications = this.prescriptionRequestForm.get('medications') as FormArray;
+    return this.medications?.controls;
+  }
 }

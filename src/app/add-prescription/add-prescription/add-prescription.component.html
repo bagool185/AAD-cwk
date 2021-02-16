@@ -6,10 +6,10 @@
     <form [formGroup]="prescriptionRequestForm" (ngSubmit)="addPrescription()">
        
         <div formArrayName="medications"
-            *ngFor="let medication of prescriptionRequestForm.get('medications').controls; let i = index;"    
+            *ngFor="let medication of getMedicationsControls(); let i = index;"    
         >
 
-            <div [frormGroupName]="i">
+            <div [formGroupName]="i">
                 <input matInput type="text" formControlName="name" placeholder="Medication name" style="margin-bottom: 10px;" required> 
                 <button type="button" (click)="remove(i)">-</button>
             </div>
@@ -20,7 +20,7 @@
         <button class="button" type="button" style="background-color:#38016f; color: #ad002b" (click)="addMedication()">Add</button>
         
 
-        <button type="submit" class="button"  style="margin-top: 2em; height: 4em" [disabled]="userFormGroup?.invalid">Request prescription</button>
+        <button type="submit" class="button"  style="margin-top: 2em; height: 4em" [disabled]="prescriptionRequestForm?.invalid">Request prescription</button>
       
     </form>
   </mat-card-content>
