@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { emailPattern } from '@utils/regex-patterns.util';
 import { PasswordConfirmationValidator } from 'src/app/core/validators/password-confirmation.validator';
+import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
 
 
 @Component({
@@ -33,5 +33,4 @@ export class RegisterComponent implements OnInit {
       return;
     }
   }
-
 }

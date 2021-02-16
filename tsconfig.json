@@ -24,7 +24,9 @@
       "@shared/*": ["src/app/shared/*"], 
       "@utils/*": ["src/app/shared/utils/*"], 
       "@environments/*": ["src/environments/*"],
-      "@validators/*": ["src/app/core/validators/*"]
+      "@validators/*": ["src/app/core/validators/*"],
+      "@services/*": ["src/app/core/services/*"],
+      "@models/*": ["src/app/shared/models/*"]
     }
   },
   "angularCompilerOptions": {
