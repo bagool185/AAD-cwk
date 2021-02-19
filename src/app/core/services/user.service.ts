@@ -83,4 +83,15 @@ export class UserService {
     
     return this.httpClient.post<IResponseWrapper<any>>(`${this.baseURL}/gp-patientPrescription`, requestBody);
   }
+
+  deletePrescription(patientEmail: string, prescriptionID: number): Observable<IResponseWrapper<any>> {
+    const params = new HttpParams({
+      fromObject: {
+        'patient-email': patientEmail,
+        'prescription-id': prescriptionID?.toString()
+      }
+    });
+    
+    return this.httpClient.delete<IResponseWrapper<any>>(`${this.baseURL}/gp-patientPrescription`, { params });  
+  }
 }
