@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { UserTypes } from '@shared/models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
 
@@ -14,6 +15,7 @@ import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
 export class WelcomeScreenComponent implements OnInit {
 
   userFormGroup: FormGroup;
+  UserTypes = UserTypes;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -24,7 +26,8 @@ export class WelcomeScreenComponent implements OnInit {
     
     this.userFormGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern(emailPattern)]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      userType: [UserTypes.Patient, Validators.required]
     });
   }
 
@@ -36,11 +39,19 @@ export class WelcomeScreenComponent implements OnInit {
 
       const email = this.userFormGroup.get('email')?.value;
       const password = this.userFormGroup.get('password')?.value;
+      const userType = this.userFormGroup.get('userType')?.value;
 
-      const userData = this.authService.logIn(email, password); 
+      const isSuccessfulLogin = this.authService.logIn(email, password, userType); 
       
-      if (userData) {
-        this.router.navigate(['/prescriptions']);
+      if (isSuccessfulLogin) {
+        switch (userType) {
+          case UserTypes.GP:
+            this.router.navigate(['/prescription-requests']);
+            break;
+          
+          default:
+            this.router.navigate(['/prescriptions']);
+        }
       }
       else {
         this.snackbar.open('Invalid credentials', 'Dismiss', {

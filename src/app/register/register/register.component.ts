@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserTypes } from '@shared/models/user';
 import { PasswordConfirmationValidator } from 'src/app/core/validators/password-confirmation.validator';
 import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
 
@@ -12,13 +13,16 @@ import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
 export class RegisterComponent implements OnInit {
 
   userFormGroup: FormGroup;
+  UserTypes = UserTypes;
 
   constructor(private readonly formBuilder: FormBuilder) { 
     this.userFormGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern(emailPattern)]],
-      fullName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      passwordConf: ['', [Validators.required, Validators.minLength(6)]]
+      passwordConf: ['', [Validators.required, Validators.minLength(6)]],
+      userType: [UserTypes.Patient, Validators.required]
     },
     {
       validators: [PasswordConfirmationValidator('password', 'passwordConf')]

@@ -1,9 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { IResponseWrapper } from '@shared/models/api';
-import { GP, Patient, PatientPrescription } from '@shared/models/user';
-import { serialize } from 'json-typescript-mapper';
+import { PatientPrescription } from '@shared/models/prescriptions';
+import { GP, Patient } from '@shared/models/user';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -60,8 +60,8 @@ export class UserService {
 
   assignPatientToGP(patientEmail: string, gpEmail: string): Observable<IResponseWrapper<any>> {
     const requestBody ={
-        'GP-email': gpEmail,
-        'patient-email': patientEmail
+        gpEmail,
+        patientEmail
     };
 
     return this.httpClient.post<IResponseWrapper<any>>(`${this.baseURL}/gps-assignPatient`, requestBody);
@@ -70,8 +70,8 @@ export class UserService {
   dissociatePatientFromGP(patientEmail: string, gpEmail: string): Observable<IResponseWrapper<any>> {
     const params = new HttpParams({
       fromObject: {
-        'GP-email': gpEmail,
-        'patient-email': patientEmail
+        gpEmail,
+        patientEmail
       }
     });
 
@@ -79,16 +79,15 @@ export class UserService {
   } 
 
   addPrescription(prescription: PatientPrescription): Observable<IResponseWrapper<any>> {
-    const requestBody = serialize(prescription);
     
-    return this.httpClient.post<IResponseWrapper<any>>(`${this.baseURL}/gp-patientPrescription`, requestBody);
+    return this.httpClient.post<IResponseWrapper<any>>(`${this.baseURL}/gp-patientPrescription`, prescription);
   }
 
   deletePrescription(patientEmail: string, prescriptionID: number): Observable<IResponseWrapper<any>> {
     const params = new HttpParams({
       fromObject: {
-        'patient-email': patientEmail,
-        'prescription-id': prescriptionID?.toString()
+        patientEmail,
+        prescriptionID: prescriptionID?.toString()
       }
     });
     

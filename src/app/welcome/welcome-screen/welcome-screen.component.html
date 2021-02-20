@@ -17,6 +17,22 @@
             </mat-error>
         </mat-form-field>
 
+        I'm a 
+        <mat-radio-group style="margin-top: 2vh; display: flex; justify-content: space-around;" class="radio-group" formControlName="userType">
+           
+           <mat-radio-button [value]="UserTypes.Patient" class="radio-button">
+              Patient
+            </mat-radio-button>
+
+            <mat-radio-button [value]="UserTypes.GP" class="radio-button" >
+              GP
+            </mat-radio-button>
+           
+            <mat-radio-button [value]="UserTypes.Pharmacist" class="radio-button">
+              Pharmacist
+            </mat-radio-button>
+        </mat-radio-group>
+
         <button type="submit" class="button" style="margin-top: 2em; height: 4em" [disabled]="userFormGroup?.invalid">Log in</button>
         
         <div style="margin-top: 2vh">

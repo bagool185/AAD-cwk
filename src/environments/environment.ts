@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  // TODO
-  apiBaseURL: ''
+  apiBaseURL: 'http://localhost:5000'
 };
 
 /*

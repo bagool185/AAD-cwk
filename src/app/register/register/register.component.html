@@ -12,9 +12,16 @@
         </mat-form-field>
 
         <mat-form-field class="full-width-input">
-            <input matInput type="text" placeholder="Full name" formControlName="fullName" required>
+            <input matInput type="text" placeholder="First name" formControlName="firstName" required>
             <mat-error>
-            The name is required
+            The first name is required and it must only contain letters
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+            <input matInput type="text" placeholder="Last name" formControlName="lastName" required>
+            <mat-error>
+              The first name is required and it must only contain letters
             </mat-error>
         </mat-form-field>
 
@@ -31,6 +38,19 @@
             Password confirmation doesn't match the original password
             </mat-error>
         </mat-form-field>
+
+         I'm a 
+        <mat-radio-group style="margin-top: 2vh; display: flex; justify-content: space-around;" class="radio-group" formControlName="userType">
+            <mat-radio-button [value]="UserTypes.GP" class="radio-button" >
+              GP
+            </mat-radio-button>
+            <mat-radio-button [value]="UserTypes.Patient" class="radio-button">
+              Patient
+            </mat-radio-button>
+            <mat-radio-button [value]="UserTypes.Pharmacist" class="radio-button">
+              Pharmacist
+            </mat-radio-button>
+        </mat-radio-group>
 
         <button type="submit" class="button" style="margin-top: 2em; height: 4em" [disabled]="userFormGroup?.invalid">Register</button>
         

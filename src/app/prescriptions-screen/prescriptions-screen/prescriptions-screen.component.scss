@@ -1,18 +1,43 @@
+@import 'vars';
+
 .prescriptions-container {
     border-radius: 10px;
-    max-width: 300px;
-    padding: 2em;
+    max-width: 250px;
+    padding: 1em;
     margin-bottom: 20px;
+
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-evenly;
 }
 
 .active {
-    background-color: rgb(54, 226, 54);
+    border: 1px solid grey;
+    border-bottom: 5px solid green;
 }
 
 .expired {
-    background-color: rgb(173, 0, 43);
+    border: 1px solid grey;
+    border-bottom: 5px solid red;
+
 }
 
 .prescription-title {
     font-weight: bold;
+}
+
+fa-icon {
+    cursor: pointer;
+    font-size: 2em;
+    color: $russian-violet;
+    fill:red;
+    &::before {
+        fill:red
+    }
+    &::content {
+        fill: red;
+    }
+    &::after {
+        fill: red;
+    }
 }

@@ -4,17 +4,12 @@
 @import '~@angular/material/theming';
 
 @include mat-core();
+@import 'vars';
 
 $KingCrimsonCwk-primary: mat-palette($mat-indigo);
 $KingCrimsonCwk-accent: mat-palette($mat-pink, A200, A100, A400);
 $KingCrimsonCwk-warn: mat-palette($mat-red);
 
-$violet: rgb(135, 2, 176);
-$russian-violet: rgb(48, 20, 76);
-$deep-violet: rgb(56, 1, 111);
-$crimson: rgb(224, 15, 57);
-$crimson-glory: rgb(187, 0, 49);
-$alabama-crimson: rgb(173, 0, 43);
 
 $primary-color-dark:   $alabama-crimson;
 $primary-color:        $crimson-glory;
@@ -40,10 +35,13 @@ $KingCrimsonCwk-theme: mat-light-theme((
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
 
 h1 {
-    color: $russian-violet;
+    color: $deep-violet;
 }
 
 a {
@@ -61,8 +59,7 @@ a {
 
 .button {
     align-items: center;
-    background-color: $primary-color-dark;
-    border: 1px solid $primary-color-dark;
+    border: 1px dashed $russian-violet;
     border-radius: 3px;
     color: $primary-color-text;
     cursor: pointer;
@@ -72,11 +69,9 @@ a {
     justify-content: center;
     margin-right: 5px;
     transition: .15s color, .15s background-color;
-    width: 100%;
-
     &:hover {
         background-color: $primary-color-text;
-        color: $primary-color-light;
+        color: $divider-color;
     }
 
     &:disabled {
@@ -85,7 +80,7 @@ a {
         cursor: unset;
 
         &:hover {
-            color: $primary-color-text;
+            color: $secondary-text-color;
         }
     }
 }

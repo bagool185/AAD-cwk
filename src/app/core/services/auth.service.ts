@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
 import { IResponseWrapper } from '@shared/models/api';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { UserTypes, IUser } from 'src/app/shared/models/user';
 
 @Injectable({
@@ -11,21 +12,18 @@ import { UserTypes, IUser } from 'src/app/shared/models/user';
 export class AuthService {
 
   private baseURL: string;
+  private loggedInUser?: IUser;
 
-  // TODO: remove when backend is implemented
-  // private logIns: IUser[] = [
-  //   {
-  //     email: 'test@email.com',
-  //     password: 'password',
-  //     type: UserTypes.Patient
-  //   }
-  // ];
-
-  constructor(private httpClient: HttpClient) { 
+  constructor(private readonly httpClient: HttpClient, private readonly router: Router) { 
     this.baseURL = environment.apiBaseURL;
+    this.loggedInUser = undefined;
   }
 
-  logIn(email: string, password: string): Observable<IResponseWrapper<any>> {
+  currentUser(): string {
+    return this.loggedInUser?.email || '';
+  }
+
+  logIn(email: string, password: string, userType: UserTypes): Subscription {
 
     const params = new HttpParams({
       fromObject: {
@@ -34,9 +32,23 @@ export class AuthService {
       }
     });
 
-    return this.httpClient.get<IResponseWrapper<any>>(`${this.baseURL}/login`, { params });
+    return this.httpClient.get<IResponseWrapper<any>>(`${this.baseURL}/login`, { params }).subscribe(() => {
+        this.loggedInUser = {
+          email,
+          type: userType
+        };
+
+        return true;
+      },
+      (err) => {
+        return false;
+    });
   }
 
+  logOut() {
+    delete this.loggedInUser;
+  }
+ 
   register(user: IUser): Observable<IResponseWrapper<IUser>> {
 
     let endpoint = '';

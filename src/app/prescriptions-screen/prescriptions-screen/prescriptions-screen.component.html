@@ -1,13 +1,31 @@
-<h1>Active</h1>
+<div *ngIf="cannotFetchPrescriptions === false; else errorContainer">
 
-<div class="prescriptions-container active" *ngFor="let prescription of getActivePrescriptions()">
-    <p class="prescription-title">{{prescription.medication}} - {{prescription.dosage}}</p>
-    <p class="prescription-description">{{prescription.instructions}}</p>
+    <h1>Active</h1>
+
+    <div class="prescriptions-container active" *ngFor="let prescription of getActivePrescriptions()" style="">
+        <div>
+            <p class="prescription-title">{{prescription.drugName}} - {{prescription.dose}}</p>
+            <p class="prescription-description">{{prescription.instructions}}</p>
+        </div>
+       
+        <fa-icon [icon]="faInfo" (click)="showMore()" style="cursor: pointer; font-size: 2em;"></fa-icon>
+    </div>
+
+    <h1>Expired</h1>
+
+    <div class="prescriptions-container expired" *ngFor="let prescription of getExpiredPrescriptions()">
+        <div>
+            <p class="prescription-title">{{prescription.drugName}} - {{prescription.dose}}</p>
+            <p class="prescription-description">{{prescription.instructions}}</p>
+        </div>
+
+        <fa-icon [icon]="faInfo" (click)="showMore()" style="cursor: pointer; font-size: 2em;"></fa-icon>
+        
+    </div>
 </div>
 
-<h1>Expired</h1>
 
-<div class="prescriptions-container expired" *ngFor="let prescription of getExpiredPrescriptions()">
-    <p class="prescription-title">{{prescription.medication}} - {{prescription.dosage}}</p>
-    <p class="prescription-description">{{prescription.instructions}}</p>
-</div>
+<ng-template #errorContainer>
+    <h1>Error</h1>
+    <p>Your prescriptions could not be fetched. Please try again later.</p>
+</ng-template>
