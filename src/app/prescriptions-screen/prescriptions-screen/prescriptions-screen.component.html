@@ -8,7 +8,7 @@
             <p class="prescription-description">{{prescription.instructions}}</p>
         </div>
        
-        <fa-icon [icon]="faInfo" (click)="showMore()" style="cursor: pointer; font-size: 2em;"></fa-icon>
+        <fa-icon [icon]="faInfo" (click)="showMore(prescription)" style="cursor: pointer; font-size: 2em;"></fa-icon>
     </div>
 
     <h1>Expired</h1>
@@ -18,9 +18,7 @@
             <p class="prescription-title">{{prescription.drugName}} - {{prescription.dose}}</p>
             <p class="prescription-description">{{prescription.instructions}}</p>
         </div>
-
-        <fa-icon [icon]="faInfo" (click)="showMore()" style="cursor: pointer; font-size: 2em;"></fa-icon>
-        
+        <fa-icon [icon]="faInfo" (click)="showMore(prescription)" style="cursor: pointer; font-size: 2em;"></fa-icon>
     </div>
 </div>
 

@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h5>{{prescription.drugName}} - {{prescription.dose}}</h5>
+    <button type="button" class="close" (click)="close()">x</button>
+</div>
+
+<div class="modal-content">
+    <div><span style="font-weight: bold;">GP contact info:</span>
+        <ul>
+            <li *ngFor="let g of prescription.gpData">{{g}}</li>
+        </ul>
+    </div>
+
+    <p><span style="font-weight: bold">Instructions:</span> {{prescription.instructions}}</p>
+    <p><span style="font-weight: bold">Period:</span> {{prescription.startDate}} - {{prescription.endDate}}</p>
+
+</div>
+
+<div class="modal-footer">
+    <button mat-button type="button" class="button" (click)="close()">Close</button>
+</div>

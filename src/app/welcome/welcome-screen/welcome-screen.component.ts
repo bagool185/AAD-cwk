@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -12,7 +13,7 @@ import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
   templateUrl: './welcome-screen.component.html',
   styleUrls: ['./welcome-screen.component.scss']
 })
-export class WelcomeScreenComponent implements OnInit {
+export class WelcomeScreenComponent implements OnInit, OnDestroy {
 
   userFormGroup: FormGroup;
   UserTypes = UserTypes;
@@ -21,7 +22,8 @@ export class WelcomeScreenComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
     private readonly snackbar: MatSnackBar,
-    private readonly router: Router
+    private readonly router: Router,
+    @Inject(DOCUMENT) private readonly document: Document
   ) { 
     
     this.userFormGroup = this.formBuilder.group({
@@ -32,6 +34,11 @@ export class WelcomeScreenComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.document.body.classList.add('bodybg-colour');
+  }
+
+  ngOnDestroy(): void {
+    this.document.body.classList.remove('bodybg-colour');
   }
 
   logIn() {

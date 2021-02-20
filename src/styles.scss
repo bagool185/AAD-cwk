@@ -34,10 +34,14 @@ $KingCrimsonCwk-theme: mat-light-theme((
 @include angular-material-theme($KingCrimsonCwk-theme);
 
 
-html, body { height: 100%; }
 body { 
     margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    overflow: auto; 
+}
+
+.bodybg-colour {
+    background-color: $russian-violet;
 }
 
 h1 {
@@ -59,7 +63,7 @@ a {
 
 .button {
     align-items: center;
-    border: 1px dashed $russian-violet;
+    border: 1px solid $russian-violet;
     border-radius: 3px;
     color: $primary-color-text;
     cursor: pointer;

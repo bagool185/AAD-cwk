@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserTypes } from '@shared/models/user';
 import { PasswordConfirmationValidator } from 'src/app/core/validators/password-confirmation.validator';
@@ -10,12 +11,16 @@ import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   userFormGroup: FormGroup;
   UserTypes = UserTypes;
 
-  constructor(private readonly formBuilder: FormBuilder) { 
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    @Inject(DOCUMENT) private readonly document: Document
+  ) { 
+    
     this.userFormGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern(emailPattern)]],
       firstName: ['', Validators.required],
@@ -30,6 +35,11 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.document.body.classList.add('bodybg-colour');
+  }
+
+  ngOnDestroy(): void {
+    this.document.body.classList.remove('bodybg-colour');
   }
 
   register() {

@@ -31,7 +31,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LayoutComponent } from './layout/layout.component';
 import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const materialModules = [
   MatAutocompleteModule,
