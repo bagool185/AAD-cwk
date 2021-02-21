@@ -14,7 +14,6 @@ import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
 export class RegisterComponent implements OnInit, OnDestroy {
 
   userFormGroup: FormGroup;
-  UserTypes = UserTypes;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -40,6 +39,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.document.body.classList.remove('bodybg-colour');
+  }
+
+  getUserTypes() {
+    return Object.values(UserTypes);
   }
 
   register() {

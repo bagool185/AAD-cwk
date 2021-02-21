@@ -39,18 +39,11 @@
             </mat-error>
         </mat-form-field>
 
-         I'm a 
-        <mat-radio-group style="margin-top: 2vh; display: flex; justify-content: space-around;" class="radio-group" formControlName="userType">
-            <mat-radio-button [value]="UserTypes.GP" class="radio-button" >
-              GP
-            </mat-radio-button>
-            <mat-radio-button [value]="UserTypes.Patient" class="radio-button">
-              Patient
-            </mat-radio-button>
-            <mat-radio-button [value]="UserTypes.Pharmacist" class="radio-button">
-              Pharmacist
-            </mat-radio-button>
-        </mat-radio-group>
+         <mat-form-field>
+            <mat-select placeholder="I'm a" formControlName="userType" required>
+              <mat-option *ngFor="let userType of getUserTypes()" [value]="userType">{{userType}}</mat-option>
+            </mat-select>
+         </mat-form-field>
 
         <button type="submit" class="button" style="margin-top: 2em; height: 4em" [disabled]="userFormGroup?.invalid">Register</button>
         

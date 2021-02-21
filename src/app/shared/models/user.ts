@@ -1,10 +1,9 @@
 import { IPatientPrescriptions } from "./prescriptions";
 
 export enum UserTypes {
-    Patient = "patient",
-    GP = "gp",
-    Pharmacist = "pharmacist",
-    Unknown = "na"
+    Patient = "Patient",
+    GP = "GP",
+    Pharmacist = "Pharmacist"
 }
 
 export interface IUser {
