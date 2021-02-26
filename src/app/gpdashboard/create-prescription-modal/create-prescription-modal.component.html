@@ -1,0 +1,58 @@
+<div class="modal-header">
+    <h5>Create prescription request</h5>
+    <button type="button" class="close" (click)="close()">x</button>
+</div>
+
+<div class="modal-content">
+        
+    <mat-card class="form-card">
+        <mat-card-content>
+
+            <form [formGroup]="prescriptionRequestForm">
+                
+            <mat-form-field>
+                <mat-select placeholder="Patient" formControlName="patientEmail" required>
+                <mat-option [value]="'patient123@gmail.com'">patient123@gmail.com</mat-option>
+                <mat-option [value]="'patient152@gmail.com'">patient152@gmail.com</mat-option>
+                <mat-option [value]="'patient1233@gmail.com'">patient1233@gmail.com</mat-option>
+                <mat-option [value]="'patient673@gmail.com'">patient673@gmail.com</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select placeholder="Pharmacist" formControlName="pharmacistEmail" required>
+                <mat-option [value]="'pharmacist123@gmail.com'"> pharmacist123@gmail.com</mat-option>
+                <mat-option [value]="'pharmacist152@gmail.com'"> pharmacist152@gmail.com</mat-option>
+                <mat-option [value]="'pharmacist1233@gmail.com'">pharmacist1233@gmail.co</mat-option>
+                <mat-option [value]="'pharmacist673@gmail.com'"> pharmacist673@gmail.com</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <input matInput type="text" placeholder="Drug name" formControlName="drugName" required>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <input matInput type="text" placeholder="Dose" formControlName="dose" required>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <input matInput type="text" placeholder="Instructions" formControlName="instructions" required>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <mat-label>End date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="endDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="modal-footer">
+    <button mat-button type="button" class="button" (click)="save()">Submit request</button>
+    <button mat-button type="button" class="button" (click)="close()">Abort</button>
+</div>

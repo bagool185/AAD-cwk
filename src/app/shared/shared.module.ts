@@ -7,7 +7,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,7 +32,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LayoutComponent } from './layout/layout.component';
 import { RouterModule } from '@angular/router';
 import { PrescriptionRequestModalComponent } from './prescription-request-modal/prescription-request-modal.component';
-import { PrescriptionRequestStatuses } from './models/prescriptions';
 
 const materialModules = [
   MatAutocompleteModule,
@@ -41,6 +40,8 @@ const materialModules = [
   MatCheckboxModule,
   MatChipsModule,
   MatDividerModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
   MatExpansionModule,
   MatIconModule,
   MatInputModule,

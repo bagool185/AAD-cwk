@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IPrescriptionRequest, PrescriptionRequestStatuses } from '@shared/models/prescriptions';
 import { PrescriptionRequestModalComponent } from '@shared/prescription-request-modal/prescription-request-modal.component';
+import { CreatePrescriptionModalComponent } from '../create-prescription-modal/create-prescription-modal.component';
 
 @Component({
   selector: 'app-gpdashboard',
@@ -68,7 +69,9 @@ export class GPDashboardComponent implements OnInit {
   }
 
   createPrescriptionRequest() {
-    // this.dialog.open();
+    this.dialog.open(CreatePrescriptionModalComponent, {
+      minWidth: '400px'
+    })
   }
 
 }
