@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h5>Prescription request #{{prescriptionRequest.id}}</h5>
+    <button type="button" class="close" (click)="close()">x</button>
+</div>
+
+<div class="modal-content">
+   
+    <mat-form-field class="full-width-input">
+        <input  matInput type="text" placeholder="Reason" [(ngModel)]="reason">
+    </mat-form-field>
+</div>
+
+<div class="modal-footer">
+    <button mat-button type="button" class="button" (click)="deny()">Deny request</button>
+    <button mat-button type="button" class="button" (click)="close()">Close</button>
+</div>

@@ -1,1 +1,27 @@
-<p>pharmacist-dashboard works!</p>
+
+<h1>Pending</h1>
+
+<div class="prescriptions-container active" *ngFor="let prescription of getPendingPrescriptionRequests()">
+    <div>
+        <p class="prescription-title">{{prescription.drugName}} - {{prescription.dose}}</p>
+        <p class="prescription-description"><span style="font-weight: bold;">Next pick-up:</span> {{prescription.nextPickUp}}</p>
+    </div>
+
+    <div style="display: flex; justify-content: space-evenly; flex-direction: column;">
+        <fa-icon [icon]="faInfo" (click)="showMore(prescription)"   ></fa-icon>
+        <fa-icon [icon]="faCancel" (click)="denyPresriptionRequest(prescription)" style="color:red" ></fa-icon>
+        <fa-icon [icon]="faAccept" (click)="acceptPrescriptionRequest(prescription)" style="color: green"  ></fa-icon>
+    </div>
+    
+</div>
+
+<h1>Reviewed</h1>
+
+<div class="prescriptions-container expired" *ngFor="let prescription of getReviewedPrescriptionRequests()">
+   <div>
+        <p class="prescription-title">{{prescription.drugName}} - {{prescription.dose}}</p>
+        <p class="prescription-description"><span style="font-weight: bold;">Next pick-up:</span> {{prescription.nextPickUp}}</p>
+    </div>
+    <fa-icon [icon]="faInfo" (click)="showMore(prescription)" style="cursor: pointer; font-size: 2em;"></fa-icon>
+</div>
+
