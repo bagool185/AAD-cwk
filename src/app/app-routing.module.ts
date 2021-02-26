@@ -33,6 +33,11 @@ const routes: Routes = [
       import('./gpdashboard/gpdashboard.module').then(m => m.GPDashboardModule)
   },
   {
+    path: 'pharmacist-dashboard',
+    loadChildren: () => 
+      import('./pharmacist-dashboard/pharmacist-dashboard.module').then(m => m.PharmacistDashboardModule)
+  },
+  {
     path: '**',
     redirectTo: 'welcome',
     pathMatch: 'full'
