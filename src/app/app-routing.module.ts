@@ -38,6 +38,11 @@ const routes: Routes = [
       import('./pharmacist-dashboard/pharmacist-dashboard.module').then(m => m.PharmacistDashboardModule)
   },
   {
+    path: 'technician-dashboard',
+    loadChildren: () => 
+      import('./technician-dashboard/technician-dashboard.module').then(m => m.TechnicianDashboardModule)
+  },
+  {
     path: '**',
     redirectTo: 'welcome',
     pathMatch: 'full'
