@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginatedTabHeader } from '@angular/material/tabs/paginated-tab-header';
 import { IPrescriptionRequest, PrescriptionRequestStatuses } from '@shared/models/prescriptions';
 
 @Component({
@@ -25,7 +24,7 @@ export class GPDashboardComponent implements OnInit {
 
     const mockPrescriptionRequests: IPrescriptionRequest[] = [
       {
-        dose: '123',
+        dose: 'Scopolamine',
         drugName: '12321',
         endDate: '12321321',
         id: 12321,
@@ -35,13 +34,39 @@ export class GPDashboardComponent implements OnInit {
         pharmacistEmail: '12321321',
         requestDate: '12321312',
         status: PrescriptionRequestStatuses.Accepted
+      },
+            {
+        dose: '213',
+        drugName: '1125214512321',
+        endDate: '12334213321321',
+        id: 12321,
+        instructions: 'asdas',
+        nextPickUp: '2132',
+        patientEmail: '21312',
+        pharmacistEmail: '123',
+        requestDate: '12312',
+        status: PrescriptionRequestStatuses.Pending
+      },
+                  {
+        dose: '12321',
+        drugName: 'asdas',
+        endDate: '12321321',
+        id: 12321,
+        instructions: 'adssadasdas',
+        nextPickUp: '125',
+        patientEmail: '123',
+        pharmacistEmail: '123',
+        requestDate: '242',
+        status: PrescriptionRequestStatuses.Denied
       }
     ];
 
-    this.dataSource = new MatTableDataSource<IPrescriptionRequest>(mockPrescriptionRequests);
-    
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    setTimeout(() => {
+      this.dataSource = new MatTableDataSource<IPrescriptionRequest>(mockPrescriptionRequests);
+      
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }, 5);
   }
 
   showPrescriptionDetails(prescriptionRequest: IPrescriptionRequest) {
