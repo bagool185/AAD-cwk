@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { IUser, UserTypes } from '@shared/models/user';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -7,9 +12,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  constructor() { }
+
+  readonly displayedColumns = ['email', 'fullName', 'userType', 'delete'];
+  dataSource!: MatTableDataSource<IUser>;
+
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort!: MatSort;
+
+  constructor(private readonly dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    const mockUsers: IUser[] = [
+      {
+        email: 'mockemail@gmail.com',
+        firstName: 'John',
+        lastName: 'Doe',
+        type: UserTypes.GP
+      },
+      {
+        email: 'anothermockemail@gmail.com',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        type: UserTypes.Patient
+      }
+    ];
+
+    setTimeout(() => {
+      this.dataSource = new MatTableDataSource<IUser>(mockUsers);
+      
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }, 5);
   }
 
+  deleteUser(user: IUser) {
+    // todo: modal
+  }
 }
