@@ -1,1 +1,44 @@
-<p>technician-dashboard works!</p>
+
+<div class="data-container" *ngIf="dataSource; else noPrescriptionsContainer">
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="requestDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Request date</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.requestDate}}</mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="prescriptionId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Prescription #</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.patientPrescription.current[0].id}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="patientEmail">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Patient email</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.patientEmail}}</mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="prescriptionDetails">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+                <button class="button" (click)="showPrescriptionDetails(element)">
+                    <mat-icon>assignment</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+          <ng-container matColumnDef="confirmPickup">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Confirm prescription pick-up</mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+                <button class="button" (click)="confirmPickUp(element)">
+                    <mat-icon>calendar_today</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[10,20]" showFirstLastButtons></mat-paginator>
+</div>
