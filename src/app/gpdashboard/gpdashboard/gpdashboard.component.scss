@@ -1,2 +1,9 @@
 @import 'table-styles';
 @import 'page-layout';
+
+.make-prescription-button {
+    margin-bottom: 2em; 
+    border: 1px solid $russian-violet;
+    line-height: 10px;
+    display: inline-block;
+}

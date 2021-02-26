@@ -25,40 +25,28 @@ export class GPDashboardComponent implements OnInit {
 
     const mockPrescriptionRequests: IPrescriptionRequest[] = [
       {
-        dose: 'Scopolamine',
-        drugName: '12321',
-        endDate: '12321321',
+        dose: '20mg',
+        drugName: 'Scopolamine',
+        endDate: '10/05/2022',
         id: 12321,
-        instructions: 'adssadasdas',
-        nextPickUp: '123213',
-        patientEmail: '1321321',
-        pharmacistEmail: '12321321',
-        requestDate: '12321312',
+        instructions: 'Take once a day.',
+        nextPickUp: '24/02/2021',
+        patientEmail: 'tpratchett@gmail.com',
+        pharmacistEmail: 'gmartin@gmail.com',
+        requestDate: '23/02/2021',
         status: PrescriptionRequestStatuses.Accepted
       },
-            {
-        dose: '213',
-        drugName: '1125214512321',
-        endDate: '12334213321321',
+      {
+        dose: '20mg',
+        drugName: 'Hydrocodone',
+        endDate: '16/04/2021',
         id: 12321,
-        instructions: 'asdas',
-        nextPickUp: '2132',
-        patientEmail: '21312',
-        pharmacistEmail: '123',
-        requestDate: '12312',
+        instructions: 'Take once a day.',
+        nextPickUp: '27/02/2021',
+        patientEmail: 'tpratchett@gmail.com',
+        pharmacistEmail: 'gmartin@gmail.com',
+        requestDate: '25/02/2021',
         status: PrescriptionRequestStatuses.Pending
-      },
-                  {
-        dose: '12321',
-        drugName: 'asdas',
-        endDate: '12321321',
-        id: 12321,
-        instructions: 'adssadasdas',
-        nextPickUp: '125',
-        patientEmail: '123',
-        pharmacistEmail: '123',
-        requestDate: '242',
-        status: PrescriptionRequestStatuses.Denied
       }
     ];
 
@@ -77,6 +65,10 @@ export class GPDashboardComponent implements OnInit {
        },
        minWidth: '400px'
     });
+  }
+
+  createPrescriptionRequest() {
+    // this.dialog.open();
   }
 
 }
