@@ -11,12 +11,10 @@ export class PrescriptionRequestModalComponent implements OnInit {
 
   prescriptionRequest!: IPrescriptionRequest;  
 
-
   constructor(
     public dialogRef: MatDialogRef<PrescriptionRequestModalComponent>,
      @Inject(MAT_DIALOG_DATA) private readonly data: { prescriptionRequest: IPrescriptionRequest }) { 
   }
-
 
   ngOnInit(): void {
     this.prescriptionRequest = this.data.prescriptionRequest;
@@ -25,5 +23,4 @@ export class PrescriptionRequestModalComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-
 }

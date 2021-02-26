@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IPrescriptionRequest, PrescriptionRequestStatuses } from '@shared/models/prescriptions';
 import { PrescriptionRequestModalComponent } from '@shared/prescription-request-modal/prescription-request-modal.component';
 import { CreatePrescriptionModalComponent } from '../create-prescription-modal/create-prescription-modal.component';
+import { ScheduleBloodTestModalComponent } from '../schedule-blood-test-modal/schedule-blood-test-modal.component';
 
 @Component({
   selector: 'app-gpdashboard',
@@ -14,7 +15,7 @@ import { CreatePrescriptionModalComponent } from '../create-prescription-modal/c
 })
 export class GPDashboardComponent implements OnInit {
 
-  readonly displayedColumns = ['requestDate', 'drugName', 'pharmacistEmail', 'patientEmail', 'status', 'details'];
+  readonly displayedColumns = ['requestDate', 'drugName', 'pharmacistEmail', 'patientEmail', 'status', 'details', 'requestBloodTest'];
   dataSource!: MatTableDataSource<IPrescriptionRequest>;
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
@@ -71,7 +72,15 @@ export class GPDashboardComponent implements OnInit {
   createPrescriptionRequest() {
     this.dialog.open(CreatePrescriptionModalComponent, {
       minWidth: '400px'
-    })
+    });
   }
 
+  scheduleBloodTest(patientEmail: string) { 
+    this.dialog.open(ScheduleBloodTestModalComponent, {
+      minWidth: '400px',
+      data: {
+        patientEmail
+      }
+    });
+  }
 }

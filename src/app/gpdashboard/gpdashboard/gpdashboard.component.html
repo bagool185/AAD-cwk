@@ -36,6 +36,16 @@
             </mat-cell>
         </ng-container>
 
+          <ng-container matColumnDef="requestBloodTest">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Schedule blood test</mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+                <button class="button" (click)="scheduleBloodTest(element.patientEmail)">
+                    <mat-icon>calendar_today</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>

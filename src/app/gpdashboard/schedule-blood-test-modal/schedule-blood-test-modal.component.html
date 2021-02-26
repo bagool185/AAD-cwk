@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h5>Schedule blood tests</h5>
+    <button type="button" class="close" (click)="close()">x</button>
+</div>
+
+<div class="modal-content">
+        
+    <h5>{{patientEmail}}</h5>
+
+    <mat-card class="form-card" *ngIf="bloodsForm">
+        <mat-card-content>
+
+            <form [formGroup]="bloodsForm">
+          
+            <mat-form-field class="full-width-input">
+                <mat-label>End date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="modal-footer">
+    <button mat-button type="button" class="button" (click)="save()">Schedule</button>
+    <button mat-button type="button" class="button" (click)="close()">Close</button>
+</div>
