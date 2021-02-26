@@ -2,7 +2,7 @@
 
     <h1>Active</h1>
 
-    <div class="prescriptions-container active" *ngFor="let prescription of getActivePrescriptions()" style="">
+    <div class="prescriptions-container active" *ngFor="let prescription of getActivePrescriptions()">
         <div>
             <p class="prescription-title">{{prescription.drugName}} - {{prescription.dose}}</p>
             <p class="prescription-description">{{prescription.instructions}}</p>

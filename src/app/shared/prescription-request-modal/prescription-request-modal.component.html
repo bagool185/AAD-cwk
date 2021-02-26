@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h5>{{prescriptionRequest.drugName}} - {{prescriptionRequest.dose}}</h5>
+    <button type="button" class="close" (click)="close()">x</button>
+</div>
+
+<div class="modal-content">
+    <p><span style="font-weight: bold;">Patient email</span> {{prescriptionRequest.patientEmail}}</p>
+    <p><span style="font-weight: bold;">Pharmacist email</span> {{prescriptionRequest.pharmacistEmail}}</p>
+    <p><span style="font-weight: bold;">Instructions</span> {{prescriptionRequest.instructions}}</p>
+    <p><span style="font-weight: bold;">End date</span> {{prescriptionRequest.endDate}}</p>
+    <p><span style="font-weight: bold;">Next pick-up</span> {{prescriptionRequest.nextPickUp}}</p>
+    <p><span style="font-weight: bold;">Status</span> {{prescriptionRequest.status}}</p>
+</div>
+
+<div class="modal-footer">
+    <button mat-button type="button" class="button" (click)="close()">Close</button>
+</div>

@@ -31,6 +31,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LayoutComponent } from './layout/layout.component';
 import { RouterModule } from '@angular/router';
+import { PrescriptionRequestModalComponent } from './prescription-request-modal/prescription-request-modal.component';
+import { PrescriptionRequestStatuses } from './models/prescriptions';
 
 const materialModules = [
   MatAutocompleteModule,
@@ -64,7 +66,7 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [LayoutComponent],
+  declarations: [LayoutComponent, PrescriptionRequestModalComponent, PrescriptionRequestModalComponent],
   exports: [...materialModules, LayoutComponent],
   imports: [CommonModule, ...materialModules, RouterModule],
 })

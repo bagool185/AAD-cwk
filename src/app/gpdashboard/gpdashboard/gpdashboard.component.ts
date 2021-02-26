@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IPrescriptionRequest, PrescriptionRequestStatuses } from '@shared/models/prescriptions';
+import { PrescriptionRequestModalComponent } from '@shared/prescription-request-modal/prescription-request-modal.component';
 
 @Component({
   selector: 'app-gpdashboard',
@@ -70,7 +71,12 @@ export class GPDashboardComponent implements OnInit {
   }
 
   showPrescriptionDetails(prescriptionRequest: IPrescriptionRequest) {
-    // todo
+     this.dialog.open(PrescriptionRequestModalComponent, {
+      data: {
+        prescriptionRequest
+       },
+       minWidth: '400px'
+    });
   }
 
 }
