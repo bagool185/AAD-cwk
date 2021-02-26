@@ -7,10 +7,11 @@ import { SharedModule } from '@shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DenyPrescriptionModalComponent } from './deny-prescription-modal/deny-prescription-modal.component';
 import { FormsModule } from '@angular/forms';
+import { AcceptPrescriptionModalComponent } from './accept-prescription-modal/accept-prescription-modal.component';
 
 
 @NgModule({
-  declarations: [PharmacistDashboardComponent, DenyPrescriptionModalComponent],
+  declarations: [PharmacistDashboardComponent, DenyPrescriptionModalComponent, AcceptPrescriptionModalComponent],
   imports: [
     CommonModule,
     PharmacistDashboardRoutingModule,
