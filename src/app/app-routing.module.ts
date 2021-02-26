@@ -43,6 +43,11 @@ const routes: Routes = [
       import('./technician-dashboard/technician-dashboard.module').then(m => m.TechnicianDashboardModule)
   },
   {
+    path: 'admin',
+    loadChildren: () => 
+      import('./admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)
+  },
+  {
     path: '**',
     redirectTo: 'welcome',
     pathMatch: 'full'
