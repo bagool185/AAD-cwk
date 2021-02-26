@@ -1,5 +1,7 @@
+<h1>Scheduled pick-ups</h1>
 
-<div class="data-container" *ngIf="dataSource; else noPrescriptionsContainer">
+
+<div class="data-container" *ngIf="dataSource; else noPickUpsContainer">
     <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <ng-container matColumnDef="requestDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Request date</mat-header-cell>
@@ -30,7 +32,7 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>Confirm prescription pick-up</mat-header-cell>
             <mat-cell *matCellDef="let element"> 
                 <button class="button" (click)="confirmPickUp(element)">
-                    <mat-icon>calendar_today</mat-icon>
+                    <mat-icon>check_circle_outline</mat-icon>
                 </button>
             </mat-cell>
         </ng-container>
@@ -42,3 +44,8 @@
 
     <mat-paginator [pageSizeOptions]="[10,20]" showFirstLastButtons></mat-paginator>
 </div>
+
+
+<ng-template #noPickUpsContainer>
+    <h1>There are no scheduled pick-ups</h1>
+</ng-template>

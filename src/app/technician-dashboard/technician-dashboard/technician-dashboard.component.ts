@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IPickUp } from '@shared/models/medication';
 import { PrescriptionDetailsModalComponent } from 'src/app/prescriptions-screen/prescription-details-modal/prescription-details-modal.component';
+import { ConfirmPickUpModalComponent } from '../confirm-pick-up-modal/confirm-pick-up-modal.component';
 
 @Component({
   selector: 'app-technician-dashboard',
@@ -73,7 +74,12 @@ export class TechnicianDashboardComponent implements OnInit {
   }
 
   confirmPickUp(pickUp: IPickUp) {
-    
+    this.dialog.open(ConfirmPickUpModalComponent, {
+      data: {
+        pickUp
+      },
+      minWidth: '400px'
+    });
   }
 
 
