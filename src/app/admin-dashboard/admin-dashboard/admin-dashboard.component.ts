@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IUser, UserTypes } from '@shared/models/user';
+import { ConfirmUserDeletionModalComponent } from './confirm-user-deletion-modal/confirm-user-deletion-modal.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -47,6 +48,11 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   deleteUser(user: IUser) {
-    // todo: modal
+    this.dialog.open(ConfirmUserDeletionModalComponent, {
+      data: {
+        user
+      },
+      minWidth: '400px'
+    })
   }
 }
