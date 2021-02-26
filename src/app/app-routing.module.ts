@@ -28,6 +28,11 @@ const routes: Routes = [
       import('./add-prescription/add-prescription.module').then(m => m.AddPrescriptionModule)
   },
   {
+    path: 'gp-dashboard',
+    loadChildren: () => 
+      import('./gpdashboard/gpdashboard.module').then(m => m.GPDashboardModule)
+  },
+  {
     path: '**',
     redirectTo: 'welcome',
     pathMatch: 'full'

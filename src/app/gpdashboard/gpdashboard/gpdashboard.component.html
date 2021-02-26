@@ -1,0 +1,46 @@
+<div class="data-container" *ngIf="dataSource; else noPrescriptionsContainer">
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="requestDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Request date</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.requestDate}}</mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="drugName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Drug name</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.drugName}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="pharmacistEmail">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Pharmacist email</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.pharmacistEmail}}</mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="patientEmail">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Patient email</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.patientEmail}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.status}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="details">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Show more</mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+                <button class="button" (click)="showPrescriptionDetails(element)">
+                    <mat-icon>perm_identity</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[10,20]" showFirstLastButtons></mat-paginator>
+</div>
+
+<ng-template #noPrescriptionsContainer>
+    <div class="centered-content">There are no prescription requests at the moment</div>
+</ng-template>

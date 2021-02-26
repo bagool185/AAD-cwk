@@ -11,16 +11,6 @@ $KingCrimsonCwk-accent: mat-palette($mat-pink, A200, A100, A400);
 $KingCrimsonCwk-warn: mat-palette($mat-red);
 
 
-$primary-color-dark:   $alabama-crimson;
-$primary-color:        $crimson-glory;
-$primary-color-light:  $crimson;
-$primary-color-text:   $deep-violet;
-$accent-color:         $russian-violet;
-$primary-text-color:   $deep-violet;
-$secondary-text-color: $violet;
-$divider-color:        #f3f3f3;
-
-
 $KingCrimsonCwk-theme: mat-light-theme((
   color: (
     primary: $KingCrimsonCwk-primary,
