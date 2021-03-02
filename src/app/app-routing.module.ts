@@ -43,6 +43,11 @@ const routes: Routes = [
       import('./technician-dashboard/technician-dashboard.module').then(m => m.TechnicianDashboardModule)
   },
   {
+    path: 'patients-screen',
+    loadChildren: () =>
+      import('./patients-screen/patients-screen.module').then(m => m.PatientsScreenModule)
+  },
+  {
     path: 'admin',
     loadChildren: () => 
       import('./admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)
