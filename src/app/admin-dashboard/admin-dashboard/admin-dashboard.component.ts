@@ -5,7 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
 import { IUser, UserTypes } from '@shared/models/user';
-import { ConfirmUserDeletionModalComponent } from './confirm-user-deletion-modal/confirm-user-deletion-modal.component';
 
 @Component({
   selector: 'app-admin-dashboard',
