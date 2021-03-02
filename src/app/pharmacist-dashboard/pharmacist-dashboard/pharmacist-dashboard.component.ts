@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MinLengthValidator } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { faBan, faCheck, faCross, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCheck, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
 import { IPrescriptionRequest, PrescriptionRequestStatuses } from '@shared/models/prescriptions';
 import { PrescriptionRequestModalComponent } from '@shared/prescription-request-modal/prescription-request-modal.component';
-import { AcceptPrescriptionModalComponent } from '../accept-prescription-modal/accept-prescription-modal.component';
 import { DenyPrescriptionModalComponent } from '../deny-prescription-modal/deny-prescription-modal.component';
 
 @Component({
@@ -68,9 +67,10 @@ export class PharmacistDashboardComponent implements OnInit {
   }
 
   acceptPrescriptionRequest(prescriptionRequest: IPrescriptionRequest) {
-    this.dialog.open(AcceptPrescriptionModalComponent, {
+    this.dialog.open(ConfirmModalComponent, {
       data: {
-        prescriptionRequest
+        title: `Prescription request #${prescriptionRequest.id}`,
+        question: `Are you sure you want to accept the prescription request #${prescriptionRequest.id}`
       },
       minWidth: '400px'
     })

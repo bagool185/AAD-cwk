@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
 import { IPickUp } from '@shared/models/medication';
 import { PrescriptionDetailsModalComponent } from 'src/app/prescriptions-screen/prescription-details-modal/prescription-details-modal.component';
-import { ConfirmPickUpModalComponent } from '../confirm-pick-up-modal/confirm-pick-up-modal.component';
 
 @Component({
   selector: 'app-technician-dashboard',
@@ -74,13 +74,22 @@ export class TechnicianDashboardComponent implements OnInit {
   }
 
   confirmPickUp(pickUp: IPickUp) {
-    this.dialog.open(ConfirmPickUpModalComponent, {
+    const prescriptionID = pickUp.patientPrescription.current[0].id;
+    
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: {
-        pickUp
-      },
-      minWidth: '400px'
+        title: `Pick-up prescription #${prescriptionID}`,
+        question: `Are you sure you want to confirm the pick-up for prescription #${prescriptionID}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res['confirmed'] === true) {
+        // todo confirm pick-up
+      }
+      else {
+        // todo abort
+      }
     });
   }
-
-
 }

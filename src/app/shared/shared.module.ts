@@ -32,6 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LayoutComponent } from './layout/layout.component';
 import { RouterModule } from '@angular/router';
 import { PrescriptionRequestModalComponent } from './prescription-request-modal/prescription-request-modal.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 const materialModules = [
   MatAutocompleteModule,
@@ -67,7 +68,7 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [LayoutComponent, PrescriptionRequestModalComponent, PrescriptionRequestModalComponent],
+  declarations: [LayoutComponent, PrescriptionRequestModalComponent, PrescriptionRequestModalComponent, ConfirmModalComponent],
   exports: [...materialModules, LayoutComponent],
   imports: [CommonModule, ...materialModules, RouterModule],
 })

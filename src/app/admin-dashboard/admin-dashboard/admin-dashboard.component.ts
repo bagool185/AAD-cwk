@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
 import { IUser, UserTypes } from '@shared/models/user';
 import { ConfirmUserDeletionModalComponent } from './confirm-user-deletion-modal/confirm-user-deletion-modal.component';
 
@@ -48,9 +49,10 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   deleteUser(user: IUser) {
-    this.dialog.open(ConfirmUserDeletionModalComponent, {
+    this.dialog.open(ConfirmModalComponent, {
       data: {
-        user
+        title: 'Confirm user deletion',
+        question: `Are you sure you want to delete user with email ${user.email}?`
       },
       minWidth: '400px'
     })
