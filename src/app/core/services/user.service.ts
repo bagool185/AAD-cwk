@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { IResponseWrapper } from '@shared/models/api';
 import { PatientPrescription } from '@shared/models/prescriptions';
-import { GP, Patient } from '@shared/models/user';
+import { GP } from '@shared/models/user';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,27 +17,7 @@ export class UserService {
     this.baseURL = environment.apiBaseURL;
   }
 
-  getPatient(email: string): Observable<IResponseWrapper<Patient>> {
-    
-    const params = new HttpParams({
-      fromObject: {
-        email
-      }
-    });
-
-    return this.httpClient.get<IResponseWrapper<Patient>>(`${this.baseURL}/patient`, { params });
-  }
-
-  deletePatient(email: string): Observable<IResponseWrapper<any>> {
-    const params = new HttpParams({
-      fromObject: {
-        email
-      }
-    });
-
-    return this.httpClient.delete<IResponseWrapper<any>>(`${this.baseURL}/patient`, {params});
-  }
-
+  
   getGP(email: string): Observable<IResponseWrapper<GP>> {
     const params = new HttpParams({
       fromObject: {
