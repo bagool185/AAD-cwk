@@ -1,0 +1,37 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
+import { IResponseWrapper } from '@shared/models/api';
+import { IDrug } from '@shared/models/medication';
+import { InteropObservable, Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DrugsService {
+
+  private baseURL: string;
+
+  constructor(private readonly httpClient: HttpClient) {
+    this.baseURL = `${environment.apiBaseURL}/drugs`;
+  }
+
+  getAll(): Observable<IResponseWrapper<IDrug[]>> {
+    return this.httpClient.get<IResponseWrapper<IDrug[]>>(this.baseURL);
+  }
+
+  create(drug: IDrug): Observable<any> {
+    return this.httpClient.post<any>(this.baseURL, drug);
+  }
+
+  delete(drugName: string): Observable<any> {
+
+    const params = new HttpParams({
+      fromObject: {
+        drugName
+      }
+    });
+
+    return this.httpClient.delete<any>(this.baseURL, { params });
+  }
+}
