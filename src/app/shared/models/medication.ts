@@ -22,8 +22,20 @@ export interface IPharmacistRequest {
     requestID: number;
 };
 
+// export interface IPickUp {
+//     patientEmail: string;
+//     patientPrescription: IPatientPrescriptions;
+//     requestDate: string;
+// };
+
 export interface IPickUp {
-    patientEmail: string;
-    patientPrescription: IPatientPrescriptions;
-    requestDate: string;
-};
+    drugName: string;
+    dose: string;
+    instructions: string;
+    endDate: string;
+    nextPickUp: string;
+    startDate: string;
+    GPData: string[];
+    id: number;
+    bloodsRequired?: string[];
+}

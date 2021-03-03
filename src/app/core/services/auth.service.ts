@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
-import { IResponseWrapper } from '@shared/models/api';
 import { Observable, Subscription } from 'rxjs';
 import { UserTypes, IUser } from 'src/app/shared/models/user';
 
@@ -32,7 +31,7 @@ export class AuthService {
       }
     });
 
-    return this.httpClient.get<IResponseWrapper<any>>(`${this.baseURL}/login`, { params }).subscribe(() => {
+    return this.httpClient.get(`${this.baseURL}/login`, { params }).subscribe(() => {
         this.loggedInUser = {
           email,
           type: userType
@@ -49,7 +48,7 @@ export class AuthService {
     delete this.loggedInUser;
   }
  
-  register(user: IUser): Observable<IResponseWrapper<IUser>> {
+  register(user: IUser): Observable<IUser> {
 
     let endpoint = '';
 
@@ -59,12 +58,20 @@ export class AuthService {
         endpoint = `${this.baseURL}/gps`;
         break;
       
+      case UserTypes.Pharmacist:
+        endpoint = `${this.baseURL}/pharmacists`;
+        break;
+      
+      case UserTypes.Technician:
+        endpoint = `${this.baseURL}/technicians`;
+        break;
+      
       default:
         // default to patient since they have the least access
         endpoint = `${this.baseURL}/patients`;
         break;
     }
 
-    return this.httpClient.post<IResponseWrapper<IUser>>(endpoint, user);
+    return this.httpClient.post<IUser>(endpoint, user);
   }
 }

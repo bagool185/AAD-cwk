@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { IResponseWrapper } from '@shared/models/api';
 import { IPatientPrescriptions } from '@shared/models/prescriptions';
-import { IUser, Patient } from '@shared/models/user';
+import { Patient } from '@shared/models/user';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,7 +17,7 @@ export class PatientService {
   }
 
 
-  get(email: string): Observable<IResponseWrapper<Patient>> {
+  get(email: string): Observable<Patient> {
     
     const params = new HttpParams({
       fromObject: {
@@ -26,18 +25,14 @@ export class PatientService {
       }
     });
 
-    return this.httpClient.get<IResponseWrapper<Patient>>(`${this.baseURL}/patient`, { params });
+    return this.httpClient.get<Patient>(`${this.baseURL}/patient`, { params });
   }
   
-  create(user: IUser): Observable<IResponseWrapper<IUser>> {
-    return this.httpClient.post<IResponseWrapper<IUser>>(`${this.baseURL}/patients`, user);
+  getAll(): Observable<Patient[]> {
+    return this.httpClient.get<Patient[]>(`${this.baseURL}/patients`);
   }
 
-  getAll(): Observable<IResponseWrapper<Patient[]>> {
-    return this.httpClient.get<IResponseWrapper<Patient[]>>(`${this.baseURL}/patients`);
-  }
-
-  getPatientPrescription(patientEmail: string): Observable<IResponseWrapper<IPatientPrescriptions>> {
+  getPatientPrescription(patientEmail: string): Observable<IPatientPrescriptions> {
     
     const params = new HttpParams({
       fromObject: {
@@ -45,10 +40,10 @@ export class PatientService {
       }
     });
 
-    return this.httpClient.get<IResponseWrapper<IPatientPrescriptions>>(`${this.baseURL}/patient-prescriptions`, { params });
+    return this.httpClient.get<IPatientPrescriptions>(`${this.baseURL}/patient-prescriptions`, { params });
   }
 
-  getPatientAppointments(patientEmail: string): Observable<IResponseWrapper<object>> {
+  getPatientAppointments(patientEmail: string): Observable<object> {
     
     const params = new HttpParams({
       fromObject: {
@@ -56,16 +51,16 @@ export class PatientService {
       }
     });
 
-    return this.httpClient.get<IResponseWrapper<object>>(`${this.baseURL}/patient-appointments`, { params });
+    return this.httpClient.get(`${this.baseURL}/patient-appointments`, { params });
   }
 
-  delete(email: string): Observable<IResponseWrapper<any>> {
+  delete(email: string): Observable<any> {
     const params = new HttpParams({
       fromObject: {
         email
       }
     });
 
-    return this.httpClient.delete<IResponseWrapper<any>>(`${this.baseURL}/patient`, {params});
+    return this.httpClient.delete(`${this.baseURL}/patient`, {params});
   }
 }

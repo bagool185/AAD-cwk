@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { IResponseWrapper } from '@shared/models/api';
 import { IPrescriptionRequest, PatientPrescription } from '@shared/models/prescriptions';
 import { Observable } from 'rxjs';
 
@@ -15,11 +14,11 @@ export class PrescriptionsService {
     this.baseURL = `${environment.apiBaseURL}/gp-patientPrescription`;
   }
 
-  create(prescription: PatientPrescription): Observable<IResponseWrapper<any>> {
-    return this.httpClient.post<IResponseWrapper<any>>(this.baseURL, prescription);
+  create(prescription: PatientPrescription): Observable<any> {
+    return this.httpClient.post<any>(this.baseURL, prescription);
   }
 
-  delete(patientEmail: string, prescriptionID: number): Observable<IResponseWrapper<any>> {
+  delete(patientEmail: string, prescriptionID: number): Observable<any> {
     const params = new HttpParams({
       fromObject: {
         patientEmail,
@@ -27,11 +26,11 @@ export class PrescriptionsService {
       }
     });
     
-    return this.httpClient.delete<IResponseWrapper<any>>(this.baseURL, { params });  
+    return this.httpClient.delete<any>(this.baseURL, { params });  
   }
 
-  getPrescriptionRequests(): Observable<IResponseWrapper<IPrescriptionRequest[]>> {
-    return this.httpClient.get<IResponseWrapper<IPrescriptionRequest[]>>(`${this.baseURL}/gp-requests`);
+  getPrescriptionRequests(): Observable<IPrescriptionRequest[]> {
+    return this.httpClient.get<IPrescriptionRequest[]>(`${this.baseURL}/gp-requests`);
   }
 
   createPrescriptionRequest(prescriptionRequest: IPrescriptionRequest): Observable<any> {

@@ -1,10 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { IResponseWrapper } from '@shared/models/api';
+import { IPickUp } from '@shared/models/medication';
 import { IPharmacist } from '@shared/models/pharmacist';
 import { IPrescriptionRequest } from '@shared/models/prescriptions';
-import { IUser } from '@shared/models/user';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -20,10 +19,6 @@ export class PharmacistsService {
 
   getAll(): Observable<IPharmacist[]> {
     return this.httpClient.get<IPharmacist[]>(this.pharmacistBaseURL);
-  }
-
-  create(user: IUser): Observable<any> {
-    return this.httpClient.post<IPharmacist[]>(this.pharmacistBaseURL, user);
   }
 
   delete(pharmacistEmail: string): Observable<any> {
@@ -94,4 +89,35 @@ export class PharmacistsService {
     
     return this.httpClient.delete<IPrescriptionRequest>(`${environment.apiBaseURL}/pharmacist-requests`, { params });
   }
+
+  getPickUps(pharmacistEmail: string): Observable<IPickUp[]> {
+
+    const params = new HttpParams({
+      fromObject: {
+        email: pharmacistEmail
+      }
+    });
+
+    return this.httpClient.get<IPickUp[]>(`${environment.apiBaseURL}/pharmacist-pickups`, { params })
+  }
+
+  acceptPickUpRequest(pharmacistEmail: string, id: string): Observable<any> {
+    return this.httpClient.put(`${environment.apiBaseURL}/pharmacist-pickups`, {
+      pharmacistEmail,
+      id
+    });
+  }
+
+  declinePickUpRequest(pharmacistEmail: string, id: string): Observable<any> {
+
+    const params = new HttpParams({
+      fromObject: {
+        pharmacistEmail,
+        id
+      }
+    });
+
+    return this.httpClient.delete(`${environment.apiBaseURL}/pharmacist-pickups`, { params });
+  }
+
 }
