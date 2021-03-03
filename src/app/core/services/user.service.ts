@@ -12,6 +12,5 @@ export class UserService {
   constructor(private readonly httpClient: HttpClient) { 
     this.baseURL = environment.apiBaseURL;
   }
-
   
 }

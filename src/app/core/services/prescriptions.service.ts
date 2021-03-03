@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { IResponseWrapper } from '@shared/models/api';
-import { PatientPrescription } from '@shared/models/prescriptions';
+import { IPrescriptionRequest, PatientPrescription } from '@shared/models/prescriptions';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -28,5 +28,20 @@ export class PrescriptionsService {
     });
     
     return this.httpClient.delete<IResponseWrapper<any>>(this.baseURL, { params });  
+  }
+
+  getPrescriptionRequests(): Observable<IResponseWrapper<IPrescriptionRequest[]>> {
+    return this.httpClient.get<IResponseWrapper<IPrescriptionRequest[]>>(`${this.baseURL}/gp-requests`);
+  }
+
+  createPrescriptionRequest(prescriptionRequest: IPrescriptionRequest): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseURL}/gp-PatientPrescriptions`, prescriptionRequest);
+  }
+
+  endPrescription(patientEmail: string, prescriptionID: number): Observable<any> {
+    return this.httpClient.put<any>(`${this.baseURL}/gp-PatientPrescriptions`, {
+      patientEmail,
+      prescriptionID
+    });
   }
 }
