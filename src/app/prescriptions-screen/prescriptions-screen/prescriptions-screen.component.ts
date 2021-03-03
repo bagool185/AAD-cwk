@@ -51,16 +51,17 @@ export class PrescriptionsScreenComponent implements OnInit {
           };
 
     if (userEmail !== '') {
-      this.userService.getPatient(userEmail).subscribe(
-        (res) => {
-          this.prescriptions = res.data.prescriptions;
+      // TODO 
+      //this.userService.getPatient(userEmail).subscribe(
+      //   (res) => {
+      //     this.prescriptions = res.data.prescriptions;
 
       
-        },
-        (err) => {
-          this.cannotFetchPrescriptions = true;
-        }
-      );
+      //   },
+      //   (err) => {
+      //     this.cannotFetchPrescriptions = true;
+      //   }
+      // );
     }
   }
 

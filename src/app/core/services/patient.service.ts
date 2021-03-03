@@ -14,7 +14,7 @@ export class PatientService {
   private baseURL = "";
 
   constructor(private readonly httpClient: HttpClient) {
-    this.baseURL = `${environment.apiBaseURL}`;
+    this.baseURL = environment.apiBaseURL;
   }
 
 

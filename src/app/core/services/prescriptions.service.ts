@@ -1,33 +1,32 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IPrescription, PrescriptionStatus } from '@shared/models/prescriptions';
+import { environment } from '@environments/environment';
+import { IResponseWrapper } from '@shared/models/api';
+import { PatientPrescription } from '@shared/models/prescriptions';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PrescriptionsService {
+  private baseURL: string;
 
-  private prescriptions: IPrescription[];
-  
+  constructor(private readonly httpClient: HttpClient) { 
+    this.baseURL = `${environment.apiBaseURL}/gp-patientPrescription`;
+  }
 
-  constructor() { 
-      this.prescriptions = [
-      {
-        dosage: '100mg',
-        medication: 'Lavodopa',
-        instructions: '2 tablets by mouth 3 times daily for one month. Take with food',
-        status: PrescriptionStatus.Active
-      },
-      {
-        medication: 'Amlodipine',
-        dosage: '5mg',
-        instructions: 'One tablet daily',
-        status: PrescriptionStatus.Expired
+  create(prescription: PatientPrescription): Observable<IResponseWrapper<any>> {
+    return this.httpClient.post<IResponseWrapper<any>>(this.baseURL, prescription);
+  }
+
+  delete(patientEmail: string, prescriptionID: number): Observable<IResponseWrapper<any>> {
+    const params = new HttpParams({
+      fromObject: {
+        patientEmail,
+        prescriptionID: prescriptionID?.toString()
       }
-    ]
+    });
+    
+    return this.httpClient.delete<IResponseWrapper<any>>(this.baseURL, { params });  
   }
-
-  getAll(): IPrescription[] {
-    return this.prescriptions;
-  }
-  
 }
