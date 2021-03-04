@@ -54,6 +54,12 @@ export class WelcomeScreenComponent implements OnInit, OnDestroy {
 
       this.authService.logIn(email, password, userType).subscribe(
         (res) => {
+          
+          this.authService.setCurrentUser({
+            email: email,
+            type: userType
+          });
+          
           const redirectRoute = getRedirectRoute(userType);
           this.router.navigate([redirectRoute]);
         },

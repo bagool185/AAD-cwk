@@ -19,7 +19,6 @@ export class PrescriptionsScreenComponent implements OnInit {
   cannotFetchPrescriptions = false;
 
   constructor(
-    private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly dialog: MatDialog
   ) { 

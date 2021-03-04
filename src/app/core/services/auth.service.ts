@@ -2,8 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserTypes, IUser } from 'src/app/shared/models/user';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,17 @@ import { UserTypes, IUser } from 'src/app/shared/models/user';
 export class AuthService {
 
   private baseURL: string;
-  private loggedInUser?: IUser;
 
   constructor(private readonly httpClient: HttpClient, private readonly router: Router) { 
     this.baseURL = environment.apiBaseURL;
-    this.loggedInUser = undefined;
   }
 
-  currentUser(): string {
-    return this.loggedInUser?.email || '';
+  currentUser(): string | null {
+    return localStorage.getItem('userEmail');
+  }
+
+  setCurrentUser(user: IUser) {
+    localStorage.setItem('userEmail', user.email);
   }
 
   logIn(email: string, password: string, userType: UserTypes): Observable<any> {
@@ -35,7 +38,7 @@ export class AuthService {
   }
 
   logOut() {
-    delete this.loggedInUser;
+    localStorage.removeItem('userEmail');
   }
  
   register(user: IUser): Observable<IUser> {

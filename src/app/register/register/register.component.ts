@@ -58,6 +58,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       const user: IUser = this.userFormGroup.value;
       this.authService.register(user).subscribe(
         (res) => {
+          this.authService.setCurrentUser(user);
+
           const redirectRoute = getRedirectRoute(user.type);
           this.router.navigate([redirectRoute]);
         },

@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from '@services/auth.service';
 import { PrescriptionsService } from '@services/prescriptions.service';
 import { IPrescriptionRequest } from '@shared/models/prescriptions';
 import { PrescriptionRequestModalComponent } from '@shared/prescription-request-modal/prescription-request-modal.component';
@@ -26,12 +27,15 @@ export class GPDashboardComponent implements OnInit {
   constructor(
     private readonly dialog: MatDialog,
     private readonly prescriptionsService: PrescriptionsService,
+    private readonly authService: AuthService,
     private readonly snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
 
-    this.prescriptionsService.getPrescriptionRequests('gpatel@gmail.com').subscribe(
+    const userEmail = this.authService.currentUser();
+
+    this.prescriptionsService.getPrescriptionRequests(userEmail).subscribe(
       (res) => {
         setTimeout(() => {
 
@@ -42,7 +46,10 @@ export class GPDashboardComponent implements OnInit {
         }, 5);
       },
       (err) => {
-        this.snackBar.open("Couldn't retrieve prescription requests. Please try again later.", 'Dismiss');
+
+        if (err?.status != 404) {
+          this.snackBar.open("Could not retrieve prescription requests. Please try again later.", 'Dismiss');
+        }
       });
   }
    

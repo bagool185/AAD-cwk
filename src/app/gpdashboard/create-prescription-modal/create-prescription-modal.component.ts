@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { IPrescriptionRequest } from '@shared/models/prescriptions';
+import { GpService } from '@services/gp.service';
 
 @Component({
   selector: 'app-create-prescription-modal',
@@ -14,12 +14,21 @@ export class CreatePrescriptionModalComponent implements OnInit {
 
   constructor(
     private readonly formBuilder: FormBuilder,
+    private readonly gpService: GpService,
     private readonly dialogRef: MatDialogRef<CreatePrescriptionModalComponent>) { 
   }
 
   ngOnInit(): void {
 
-    this.prescriptionRequestForm = this.formBuilder.group({
+    this.initForm();
+
+
+
+   
+  }
+
+  private initForm() {
+     this.prescriptionRequestForm = this.formBuilder.group({
       patientEmail: ["", Validators.required],
       pharmacistEmail: ["", Validators.required],
       drugName: ["", Validators.required],
