@@ -17,8 +17,9 @@ export class AuthService {
     this.baseURL = environment.apiBaseURL;
   }
 
-  currentUser(): string | null {
-    return localStorage.getItem('userEmail');
+  currentUser(): string {
+    const userEmail = localStorage.getItem('userEmail');
+    return userEmail || '';
   }
 
   setCurrentUser(user: IUser) {

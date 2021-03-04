@@ -35,6 +35,11 @@ export class GPDashboardComponent implements OnInit {
 
     const userEmail = this.authService.currentUser();
 
+    if (userEmail == null) {
+      // todo: remove when route guards are added
+      return;
+    }
+
     this.prescriptionsService.getPrescriptionRequests(userEmail).subscribe(
       (res) => {
         setTimeout(() => {

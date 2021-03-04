@@ -46,13 +46,13 @@ export class GpService {
       }
     });
 
-    return this.httpClient.post(`${this.baseURL}/gp-patients`, { params });
+    return this.httpClient.get(`${this.baseURL}/gp-patients`, { params });
   }
 
   assignPatientToGP(patientEmail: string, gpEmail: string): Observable<any> {
     const requestBody ={
-        gpEmail,
-        patientEmail
+      gpEmail,
+      patientEmail
     };
 
     return this.httpClient.post(`${this.baseURL}/gps-assignPatient`, requestBody);
