@@ -1,7 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserTypes } from '@shared/models/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AuthService } from '@services/auth.service';
+import { IUser, UserTypes } from '@shared/models/user';
+import { getRedirectRoute } from '@shared/utils/route-redirect.util';
 import { PasswordConfirmationValidator } from 'src/app/core/validators/password-confirmation.validator';
 import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
 
@@ -17,6 +21,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly formBuilder: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly router: Router,
+    private readonly snackBar: MatSnackBar,
     @Inject(DOCUMENT) private readonly document: Document
   ) { 
     
@@ -46,8 +53,21 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   register() {
-    if (this.userFormGroup.invalid) {
-      return;
+    if (this.userFormGroup.invalid === false) {
+      
+      const user: IUser = this.userFormGroup.value;
+      this.authService.register(user).subscribe(
+        (res) => {
+          const redirectRoute = getRedirectRoute(user.type);
+          this.router.navigate([redirectRoute]);
+        },
+        (err) => {
+          const errMessage = (err?.status === 400) ?
+            `An account with the email ${user.email} already exists.` : 'Could not process your request. Please try again later.';
+          
+          this.snackBar.open(errMessage, 'Dismiss', { duration: 5000 })
+        }
+      )
     }
   }
 }

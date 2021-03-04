@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserTypes } from '@shared/models/user';
+import { getRedirectRoute } from '@shared/utils/route-redirect.util';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { emailPattern } from 'src/app/shared/utils/regex-patterns.util';
 
@@ -53,14 +54,8 @@ export class WelcomeScreenComponent implements OnInit, OnDestroy {
 
       this.authService.logIn(email, password, userType).subscribe(
         (res) => {
-          switch (userType) {
-            case UserTypes.GP:
-              this.router.navigate(['/prescription-requests']);
-              break;
-              
-            default:
-              this.router.navigate(['/prescriptions']);
-          }
+          const redirectRoute = getRedirectRoute(userType);
+          this.router.navigate([redirectRoute]);
         },
         (err) => {
 
