@@ -22,74 +22,74 @@ export class TechnicianDashboardComponent implements OnInit {
   constructor(private readonly dialog: MatDialog) { }
 
   ngOnInit(): void {
-    const mockPickUps: IPickUp[] = [
-      {
-        patientEmail: 'tpratchett@gmail.com',
-        patientPrescription: {
-          current: [{
-            dose: '20mg',
-            drugName: 'Scopolamine',
-            gpData: ['mygp@gmail.com'],
-            instructions: 'Take one a day',
-            endDate: '10/05/2022',
-            startDate: '5/05/2021',
-            id: 1232
-          }],
-          previous: []
-        },
-        requestDate: '23/02/2021'
-      },
-      {
-        patientEmail: 'ptrapchepp@gmail.com',
-        patientPrescription: {
-          current: [{
-            dose: '20mg',
-            drugName: 'Hydrocodone',
-            gpData: ['gmartin@gmail.com'],
-            instructions: 'Take one a day',
-            endDate: '16/04/2021',
-            startDate: '1/01/2021',
-            id: 1235
-          }],
-          previous: []
-        },
-        requestDate: '21/02/2021'
-      }
-    ];
+    // // const mockPickUps: IPickUp[] = [
+    // //   {
+    // //     patientEmail: 'tpratchett@gmail.com',
+    // //     patientPrescription: {
+    // //       current: [{
+    // //         dose: '20mg',
+    // //         drugName: 'Scopolamine',
+    // //         gpData: ['mygp@gmail.com'],
+    // //         instructions: 'Take one a day',
+    // //         endDate: '10/05/2022',
+    // //         startDate: '5/05/2021',
+    // //         id: 1232
+    // //       }],
+    // //       previous: []
+    // //     },
+    // //     requestDate: '23/02/2021'
+    // //   },
+    // //   {
+    // //     patientEmail: 'ptrapchepp@gmail.com',
+    // //     patientPrescription: {
+    // //       current: [{
+    // //         dose: '20mg',
+    // //         drugName: 'Hydrocodone',
+    // //         gpData: ['gmartin@gmail.com'],
+    // //         instructions: 'Take one a day',
+    // //         endDate: '16/04/2021',
+    // //         startDate: '1/01/2021',
+    // //         id: 1235
+    // //       }],
+    // //       previous: []
+    // //     },
+    // //     requestDate: '21/02/2021'
+    // //   }
+    // ];
 
-      setTimeout(() => {
-        this.dataSource = new MatTableDataSource<IPickUp>(mockPickUps);
+    //   setTimeout(() => {
+    //     this.dataSource = new MatTableDataSource<IPickUp>(mockPickUps);
         
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      }, 5);
+    //     this.dataSource.sort = this.sort;
+    //     this.dataSource.paginator = this.paginator;
+    //   }, 5);
   }
 
   showPrescriptionDetails(pickUp: IPickUp) {
-    this.dialog.open(PrescriptionDetailsModalComponent, {
-      data: {
-        prescription: pickUp.patientPrescription.current[0]
-      }
-    });
+    // this.dialog.open(PrescriptionDetailsModalComponent, {
+    //   data: {
+    //     prescription: pickUp.patientPrescription.current[0]
+    //   }
+    // });
   }
 
   confirmPickUp(pickUp: IPickUp) {
-    const prescriptionID = pickUp.patientPrescription.current[0].id;
+    // const prescriptionID = pickUp.patientPrescription.current[0].id;
     
-    const dialogRef = this.dialog.open(ConfirmModalComponent, {
-      data: {
-        title: `Pick-up prescription #${prescriptionID}`,
-        question: `Are you sure you want to confirm the pick-up for prescription #${prescriptionID}`
-      }
-    });
+    // const dialogRef = this.dialog.open(ConfirmModalComponent, {
+    //   data: {
+    //     title: `Pick-up prescription #${prescriptionID}`,
+    //     question: `Are you sure you want to confirm the pick-up for prescription #${prescriptionID}`
+    //   }
+    // });
 
-    dialogRef.afterClosed().subscribe((res) => {
-      if (res['confirmed'] === true) {
-        // todo confirm pick-up
-      }
-      else {
-        // todo abort
-      }
-    });
+    // dialogRef.afterClosed().subscribe((res) => {
+    //   if (res['confirmed'] === true) {
+    //     // todo confirm pick-up
+    //   }
+    //   else {
+    //     // todo abort
+    //   }
+    // });
   }
 }

@@ -51,23 +51,36 @@ export class WelcomeScreenComponent implements OnInit, OnDestroy {
       const password = this.userFormGroup.get('password')?.value;
       const userType = this.userFormGroup.get('userType')?.value;
 
-      const isSuccessfulLogin = this.authService.logIn(email, password, userType); 
-      
-      if (isSuccessfulLogin) {
-        switch (userType) {
-          case UserTypes.GP:
-            this.router.navigate(['/prescription-requests']);
-            break;
-          
-          default:
-            this.router.navigate(['/prescriptions']);
+      this.authService.logIn(email, password, userType).subscribe(
+        (res) => {
+          switch (userType) {
+            case UserTypes.GP:
+              this.router.navigate(['/prescription-requests']);
+              break;
+              
+            default:
+              this.router.navigate(['/prescriptions']);
+          }
+        },
+        (err) => {
+
+          let errMessage = '';
+
+          switch (err?.status) {
+            case 400:
+              errMessage = 'Invalid credentials. Please make sure you have selected the right user type.';
+              break;
+            case 404:
+              errMessage = `A user with the email ${email} could not be found.`;
+              break;
+            default:
+              errMessage = 'Could not process your request. Please try again later.'
+              break;
+          }
+
+          this.snackbar.open(errMessage, 'Dismiss', { duration: 5000 });
         }
-      }
-      else {
-        this.snackbar.open('Invalid credentials', 'Dismiss', {
-          duration: 5000
-        });
-      }
+      );
     }
   }
 

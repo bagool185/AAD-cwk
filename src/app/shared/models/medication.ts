@@ -1,5 +1,3 @@
-import { IPatientPrescriptions, IPrescriptionRequest } from "./prescriptions";
-
 export interface IPatientBloods {
     email: string;
     testDate: string;
@@ -29,6 +27,9 @@ export interface IPharmacistRequest {
 // };
 
 export interface IPickUp {
+    patientEmail?: string;
+    prescriptionID: number;
+    patientName: string;
     drugName: string;
     dose: string;
     instructions: string;

@@ -11,7 +11,7 @@ export class PrescriptionsService {
   private baseURL: string;
 
   constructor(private readonly httpClient: HttpClient) { 
-    this.baseURL = `${environment.apiBaseURL}/gp-patientPrescription`;
+    this.baseURL = `${environment.apiBaseURL}/gp-PatientPrescription`;
   }
 
   create(prescription: PatientPrescription): Observable<any> {
@@ -29,16 +29,23 @@ export class PrescriptionsService {
     return this.httpClient.delete<any>(this.baseURL, { params });  
   }
 
-  getPrescriptionRequests(): Observable<IPrescriptionRequest[]> {
-    return this.httpClient.get<IPrescriptionRequest[]>(`${this.baseURL}/gp-requests`);
+  getPrescriptionRequests(gpEmail: string): Observable<IPrescriptionRequest[]> {
+
+    const params = new HttpParams({
+      fromObject: {
+        email: gpEmail
+      }
+    });
+
+    return this.httpClient.get<IPrescriptionRequest[]>(`${environment.apiBaseURL}/gp-requests`, { params });
   }
 
   createPrescriptionRequest(prescriptionRequest: IPrescriptionRequest): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseURL}/gp-PatientPrescriptions`, prescriptionRequest);
+    return this.httpClient.post<any>(this.baseURL, prescriptionRequest);
   }
 
   endPrescription(patientEmail: string, prescriptionID: number): Observable<any> {
-    return this.httpClient.put<any>(`${this.baseURL}/gp-PatientPrescriptions`, {
+    return this.httpClient.put<any>(this.baseURL, {
       patientEmail,
       prescriptionID
     });

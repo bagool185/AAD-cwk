@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IPrescriptionRequest, PrescriptionRequestStatuses } from '@shared/models/prescriptions';
+import { PrescriptionsService } from '@services/prescriptions.service';
+import { IPrescriptionRequest } from '@shared/models/prescriptions';
 import { PrescriptionRequestModalComponent } from '@shared/prescription-request-modal/prescription-request-modal.component';
 import { CreatePrescriptionModalComponent } from '../create-prescription-modal/create-prescription-modal.component';
 import { ScheduleBloodTestModalComponent } from '../schedule-blood-test-modal/schedule-blood-test-modal.component';
@@ -21,45 +23,29 @@ export class GPDashboardComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
-  constructor(private readonly dialog: MatDialog) { }
+  constructor(
+    private readonly dialog: MatDialog,
+    private readonly prescriptionsService: PrescriptionsService,
+    private readonly snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
 
-    const mockPrescriptionRequests: IPrescriptionRequest[] = [
-      {
-        dose: '20mg',
-        drugName: 'Scopolamine',
-        endDate: '10/05/2022',
-        id: 12321,
-        instructions: 'Take once a day.',
-        nextPickUp: '24/02/2021',
-        patientEmail: 'tpratchett@gmail.com',
-        pharmacistEmail: 'gmartin@gmail.com',
-        requestDate: '23/02/2021',
-        status: PrescriptionRequestStatuses.Accepted
+    this.prescriptionsService.getPrescriptionRequests('gpatel@gmail.com').subscribe(
+      (res) => {
+        setTimeout(() => {
+
+          this.dataSource = new MatTableDataSource<IPrescriptionRequest>(res);
+                
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }, 5);
       },
-      {
-        dose: '20mg',
-        drugName: 'Hydrocodone',
-        endDate: '16/04/2021',
-        id: 12321,
-        instructions: 'Take once a day.',
-        nextPickUp: '27/02/2021',
-        patientEmail: 'tpratchett@gmail.com',
-        pharmacistEmail: 'gmartin@gmail.com',
-        requestDate: '25/02/2021',
-        status: PrescriptionRequestStatuses.Pending
-      }
-    ];
-
-    setTimeout(() => {
-      this.dataSource = new MatTableDataSource<IPrescriptionRequest>(mockPrescriptionRequests);
-      
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    }, 5);
+      (err) => {
+        this.snackBar.open("Couldn't retrieve prescription requests. Please try again later.", 'Dismiss');
+      });
   }
-
+   
   showPrescriptionDetails(prescriptionRequest: IPrescriptionRequest) {
      this.dialog.open(PrescriptionRequestModalComponent, {
       data: {

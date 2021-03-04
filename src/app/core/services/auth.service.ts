@@ -22,7 +22,7 @@ export class AuthService {
     return this.loggedInUser?.email || '';
   }
 
-  logIn(email: string, password: string, userType: UserTypes): Subscription {
+  logIn(email: string, password: string, userType: UserTypes): Observable<any> {
 
     const params = new HttpParams({
       fromObject: {
@@ -31,17 +31,7 @@ export class AuthService {
       }
     });
 
-    return this.httpClient.get(`${this.baseURL}/login`, { params }).subscribe(() => {
-        this.loggedInUser = {
-          email,
-          type: userType
-        };
-
-        return true;
-      },
-      (err) => {
-        return false;
-    });
+    return this.httpClient.get(`${this.baseURL}/login`, { params });
   }
 
   logOut() {
