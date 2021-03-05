@@ -4,9 +4,9 @@
 
 <div *ngIf="patients != null && patients.length > 0; else noPatientsContainer">
     <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-        <ng-container matColumnDef="fullName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Full name</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element.firstName}} {{element.lastName}}</mat-cell>
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Email address</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element}} </mat-cell>
         </ng-container>
         
         <ng-container matColumnDef="unassign">

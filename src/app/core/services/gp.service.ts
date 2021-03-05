@@ -40,14 +40,14 @@ export class GpService {
     return this.httpClient.delete(`${this.baseURL}/gps`, {params});
   }
 
-  getPatients(gpEmail: string): Observable<any> {
+  getPatients(gpEmail: string): Observable<IResponseWrapper<string[]>> {
     const params = new HttpParams({
       fromObject: {
         email: gpEmail
       }
     });
 
-    return this.httpClient.get(`${this.baseURL}/gp-patients`, { params });
+    return this.httpClient.get<IResponseWrapper<string[]>>(`${this.baseURL}/gp-patients`, { params });
   }
 
   assignPatientToGP(patientEmail: string, gpEmail: string): Observable<any> {

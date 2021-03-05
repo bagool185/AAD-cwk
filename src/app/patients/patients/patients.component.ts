@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from '@services/auth.service';
 import { GpService } from '@services/gp.service';
-import { PatientService } from '@services/patient.service';
 import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
 import { Patient } from '@shared/models/user';
 import { AddPatientModalComponent } from '../add-patient-modal/add-patient-modal.component';
@@ -17,50 +17,44 @@ import { AddPatientModalComponent } from '../add-patient-modal/add-patient-modal
 })
 export class PatientsComponent implements OnInit {
 
-  patients!: Patient[];
+  patients!: string[];
 
-  dataSource!: MatTableDataSource<Patient>;
+  dataSource!: MatTableDataSource<string>;
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
-  displayedColumns = ['fullName', 'unassign']
+  displayedColumns = ['email', 'unassign']
 
   constructor(
     private readonly gpService: GpService,
-    private readonly patientService: PatientService,
     private readonly authService: AuthService,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
 
-    this.patientService.getAll().subscribe(
-      (res) => {
+    this.gpService.getPatients(this.authService.currentUser()).subscribe(
+    (res) => {
         this.patients = res.data;
 
-        setTimeout(() => {
-          this.dataSource = new MatTableDataSource<Patient>(this.patients);
+        this.renderTable();
+      },
+      (err) => {
+        if (err.status === 404) {
+          this.patients = [];
+        }
+    });
+  }
+
+  private renderTable() {
+      setTimeout(() => {
+          this.dataSource = new MatTableDataSource<string>(this.patients);
           
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
         }, 5);
-      },
-      (err) => {
-      }
-    )
-
-    // TODO: uncomment when service is fixed
-    // this.gpService.getPatients(this.authService.currentUser()).subscribe(
-    // (res) => {
-    //     this.patients = res.data;
-    //     console.log(this.patients);
-    //   },
-    //   (err) => {
-    //     if (err.status === 404) {
-    //       this.patients = [];
-    //     }
-    // });
   }
 
   addPatient() {
@@ -76,27 +70,37 @@ export class PatientsComponent implements OnInit {
       const newPatient: Patient = res?.selectedPatient;
 
       if (newPatient != null) {
-        this.gpService.assignPatientToGP(newPatient.email, this.authService.currentUser()).subscribe((res) => {
-          this.patients.push(newPatient);
-        });
+        this.gpService.assignPatientToGP(newPatient.email, this.authService.currentUser()).subscribe(
+          (res) => {
+            this.patients.push(newPatient.email);
+            this.renderTable();
+          },
+          (err) => {
+            if (err?.status === 400) {
+              this.snackBar.open(`Patient with email ${newPatient.email} is already assigned to you`,
+                'Dismiss', { duration: 5000 });
+            }
+          }
+        );
       }
     });
   }
 
-  unassignPatient(patient: Patient) {
+  unassignPatient(patientEmail: string) {
 
     const dialogRef = this.dialog.open(ConfirmModalComponent, {
       data: {
-        title: `Unassign patient ${patient.firstName} ${patient.lastName}`,
-        question: `Are you sure you want to unassign  ${patient.firstName} ${patient.lastName}`
+        title: `Unassign patient ${patientEmail}`,
+        question: `Are you sure you want to unassign ${patientEmail}`
       }
     });
 
     dialogRef.afterClosed().subscribe((res) => {
       if (res?.confirmed) {
-        this.gpService.dissociatePatientFromGP(patient.email, this.authService.currentUser()).subscribe(
+        this.gpService.dissociatePatientFromGP(patientEmail, this.authService.currentUser()).subscribe(
           (res) => {
-            this.patients = this.patients.filter(p => p.email !== patient.email);
+            this.patients = this.patients.filter(p => p !== patientEmail);
+            this.renderTable();
           }
         );
       }
