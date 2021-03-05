@@ -38,11 +38,11 @@ export class PharmacistDashboardComponent implements OnInit {
   }
 
   getPendingPrescriptionRequests() {
-    return this.prescriptionRequests?.filter(p => p.status === PrescriptionRequestStatuses.Pending) || [];
+    return this.prescriptionRequests || [];
   }
 
   getReviewedPrescriptionRequests() {
-    return this.prescriptionRequests?.filter(p => p.status !== PrescriptionRequestStatuses.Pending) || [];
+    return this.prescriptionRequests?.filter(p => p.status === PrescriptionRequestStatuses.Processed) || [];
   }
 
   denyPresriptionRequest(prescriptionRequest: IPrescriptionRequest) {
