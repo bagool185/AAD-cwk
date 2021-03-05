@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
+import { IResponseWrapper } from '@shared/models/api';
 import { IPickUp } from '@shared/models/medication';
 import { ITechnician } from '@shared/models/technician';
 import { Observable } from 'rxjs';
@@ -16,8 +17,8 @@ export class TechniciansService {
     this.baseURL = `${environment.apiBaseURL}/technicians`;
   }
 
-  getAll(): Observable<ITechnician[]> {
-    return this.httpClient.get<ITechnician[]>(this.baseURL);
+  getAll(): Observable<IResponseWrapper<ITechnician[]>> {
+    return this.httpClient.get<IResponseWrapper<ITechnician[]>>(this.baseURL);
   }
 
   delete(technicianEmail: string): Observable<any> {

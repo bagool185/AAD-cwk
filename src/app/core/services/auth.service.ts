@@ -48,6 +48,7 @@ export class AuthService {
 
   logOut() {
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('userType');
   }
  
   register(user: IUser): Observable<IResponseWrapper<IUser>> {
