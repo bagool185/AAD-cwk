@@ -1,0 +1,31 @@
+<h1>Patients</h1>
+
+<button class="button" style="margin-bottom: 10px;" (click)="addPatient()">Add patient</button>
+
+<div *ngIf="patients != null && patients.length > 0; else noPatientsContainer">
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="fullName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Full name</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.firstName}} {{element.lastName}}</mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="unassign">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Unassign</mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+                <button class="button" (click)="unassignPatient(element)">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[10,20]" showFirstLastButtons></mat-paginator>
+</div>
+
+<ng-template #noPatientsContainer>
+    <p>There are no patients assigned to you.</p>
+</ng-template>
+

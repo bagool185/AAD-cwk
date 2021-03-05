@@ -56,11 +56,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.userFormGroup.invalid === false) {
       
       const user: IUser = this.userFormGroup.value;
+      user.type = this.userFormGroup.get('userType')?.value;
+
       this.authService.register(user).subscribe(
         (res) => {
           this.authService.setCurrentUser(user);
-
+          console.log(user.type);
           const redirectRoute = getRedirectRoute(user.type);
+          console.log(redirectRoute);
           this.router.navigate([redirectRoute]);
         },
         (err) => {

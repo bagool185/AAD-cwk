@@ -1,6 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
+import { IResponseWrapper } from '@shared/models/api';
 import { GP } from '@shared/models/user';
 import { Observable } from 'rxjs';
 
@@ -15,18 +16,18 @@ export class GpService {
     this.baseURL = environment.apiBaseURL;
   }
 
-  getAll(): Observable<GP[]> {
-    return this.httpClient.get<GP[]>(`${this.baseURL}/gps`);
+  getAll(): Observable<IResponseWrapper<GP[]>> {
+    return this.httpClient.get<IResponseWrapper<GP[]>>(`${this.baseURL}/gps`);
   }
 
-  get(email: string): Observable<GP> {
+  get(email: string): Observable<IResponseWrapper<GP>> {
     const params = new HttpParams({
       fromObject: {
         email
       }
     });
 
-    return this.httpClient.get<GP>(`${this.baseURL}/gp`, { params });
+    return this.httpClient.get<IResponseWrapper<GP>>(`${this.baseURL}/gp`, { params });
   }
 
   delete(email: string): Observable<any> {
@@ -50,22 +51,23 @@ export class GpService {
   }
 
   assignPatientToGP(patientEmail: string, gpEmail: string): Observable<any> {
-    const requestBody ={
-      gpEmail,
+
+    const requestBody = {
+      'GPEmail': gpEmail,
       patientEmail
     };
 
-    return this.httpClient.post(`${this.baseURL}/gps-assignPatient`, requestBody);
+    return this.httpClient.post(`${this.baseURL}/gp-assignPatient`, requestBody);
   }
 
   dissociatePatientFromGP(patientEmail: string, gpEmail: string): Observable<any> {
     const params = new HttpParams({
       fromObject: {
-        gpEmail,
+        'GPEmail': gpEmail,
         patientEmail
       }
     });
 
-    return this.httpClient.delete(`${this.baseURL}/gps-assignPatient`, { params });
+    return this.httpClient.delete(`${this.baseURL}/gp-assignPatient`,  { params  });
   } 
 }

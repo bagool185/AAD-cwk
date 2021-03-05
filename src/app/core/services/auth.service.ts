@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
+import { IResponseWrapper } from '@shared/models/api';
 import { Observable } from 'rxjs';
 import { UserTypes, IUser } from 'src/app/shared/models/user';
 
@@ -22,8 +23,15 @@ export class AuthService {
     return userEmail || '';
   }
 
+  currentUserType(): UserTypes {
+    const userType = localStorage.getItem('userType');
+
+    return userType as UserTypes;
+  }
+
   setCurrentUser(user: IUser) {
     localStorage.setItem('userEmail', user.email);
+    localStorage.setItem('userType', user.type);
   }
 
   logIn(email: string, password: string, userType: UserTypes): Observable<any> {
@@ -42,7 +50,7 @@ export class AuthService {
     localStorage.removeItem('userEmail');
   }
  
-  register(user: IUser): Observable<IUser> {
+  register(user: IUser): Observable<IResponseWrapper<IUser>> {
 
     let endpoint = '';
 
@@ -66,6 +74,6 @@ export class AuthService {
         break;
     }
 
-    return this.httpClient.post<IUser>(endpoint, user);
+    return this.httpClient.post<IResponseWrapper<IUser>>(endpoint, user);
   }
 }

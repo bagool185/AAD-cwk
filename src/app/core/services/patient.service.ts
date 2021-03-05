@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
+import { IResponseWrapper } from '@shared/models/api';
 import { IPatientPrescriptions } from '@shared/models/prescriptions';
 import { Patient } from '@shared/models/user';
 import { Observable } from 'rxjs';
@@ -28,8 +29,8 @@ export class PatientService {
     return this.httpClient.get<Patient>(`${this.baseURL}/patient`, { params });
   }
   
-  getAll(): Observable<Patient[]> {
-    return this.httpClient.get<Patient[]>(`${this.baseURL}/patients`);
+  getAll(): Observable<IResponseWrapper<Patient[]>> {
+    return this.httpClient.get<IResponseWrapper<Patient[]>>(`${this.baseURL}/patients`);
   }
 
   getPatientPrescription(patientEmail: string): Observable<IPatientPrescriptions> {

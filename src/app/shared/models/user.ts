@@ -12,15 +12,13 @@ export interface IUser {
     password?: string;
     firstName?: string;
     lastName?: string;
-    type?: UserTypes;
+    type: UserTypes;
 }
-
 
 export interface IBloodTest {
     date: string;
     result: string;
 }
-
 
 export class Patient {
     email!: string;

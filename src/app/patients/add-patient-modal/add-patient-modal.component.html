@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h5>Add patient</h5>
+    <button type="button" class="close" (click)="close()">x</button>
+</div>
+
+<div class="modal-content">
+    <mat-form-field>
+        <mat-select placeholder="Patient" [(ngModel)]="selectedPatient" required>
+            <mat-option *ngFor="let patient of patients" [value]='patient'>{{patient.firstName}} {{patient.lastName}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div class="modal-footer">
+    <button mat-button type="button" class="button" (click)="save()" [disabled]="selectedPatient == undefined">Add</button>
+    <button mat-button type="button" class="button" (click)="close()">Abort</button>
+</div>
