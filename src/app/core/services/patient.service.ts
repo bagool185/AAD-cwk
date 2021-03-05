@@ -26,6 +26,8 @@ export class PatientService {
       }
     });
 
+    console.log(email);
+
     return this.httpClient.get<Patient>(`${this.baseURL}/patient`, { params });
   }
   
@@ -33,7 +35,7 @@ export class PatientService {
     return this.httpClient.get<IResponseWrapper<Patient[]>>(`${this.baseURL}/patients`);
   }
 
-  getPatientPrescription(patientEmail: string): Observable<IPatientPrescriptions> {
+  getPatientPrescriptions(patientEmail: string): Observable<IPatientPrescriptions> {
     
     const params = new HttpParams({
       fromObject: {

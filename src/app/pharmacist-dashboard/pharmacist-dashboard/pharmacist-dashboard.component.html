@@ -1,6 +1,10 @@
 
 <h1>Pending</h1>
 
+<p *ngIf="getPendingPrescriptionRequests()?.length === 0">
+    There are no pending prescription requests.
+</p>
+
 <div class="prescriptions-container active" *ngFor="let prescription of getPendingPrescriptionRequests()">
     <div>
         <p class="prescription-title">{{prescription.drugName}} - {{prescription.dose}}</p>
@@ -12,10 +16,14 @@
         <fa-icon [icon]="faCancel" (click)="denyPresriptionRequest(prescription)" style="color:red" ></fa-icon>
         <fa-icon [icon]="faAccept" (click)="acceptPrescriptionRequest(prescription)" style="color: green"  ></fa-icon>
     </div>
-    
 </div>
 
 <h1>Reviewed</h1>
+
+<p *ngIf="getReviewedPrescriptionRequests()?.length === 0">
+    There are no reviewed prescription requests.
+</p>
+
 
 <div class="prescriptions-container expired" *ngFor="let prescription of getReviewedPrescriptionRequests()">
    <div>

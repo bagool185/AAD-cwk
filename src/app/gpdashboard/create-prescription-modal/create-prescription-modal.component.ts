@@ -7,7 +7,7 @@ import { GpService } from '@services/gp.service';
 import { PharmacistsService } from '@services/pharmacists.service';
 import { IDrug } from '@shared/models/medication';
 import { IPharmacist } from '@shared/models/pharmacist';
-import { IPrescriptionRequest } from '@shared/models/prescriptions';
+import { IPrescriptionRequest, PrescriptionRequestStatuses } from '@shared/models/prescriptions';
 import { convertToShortDate } from '@shared/utils/date.util';
 
 @Component({
@@ -93,8 +93,8 @@ export class CreatePrescriptionModalComponent implements OnInit {
     prescriptionRequest.GPEmail = this.gpEmail;
     prescriptionRequest.endDate = convertToShortDate(prescriptionRequest.endDate);
     prescriptionRequest.nextPickUp = convertToShortDate(prescriptionRequest.nextPickUp);
+    prescriptionRequest.status = PrescriptionRequestStatuses.Pending;
 
-    console.log(prescriptionRequest);
     this.dialogRef.close(prescriptionRequest);
   }
 

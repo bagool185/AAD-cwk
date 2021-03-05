@@ -2,16 +2,24 @@
 
     <h1>Active</h1>
 
+    <p *ngIf="getActivePrescriptions()?.length === 0">
+        There are no active prescritpions.
+    </p>
+
     <div class="prescriptions-container active" *ngFor="let prescription of getActivePrescriptions()">
         <div>
             <p class="prescription-title">{{prescription.drugName}} - {{prescription.dose}}</p>
             <p class="prescription-description">{{prescription.instructions}}</p>
         </div>
-       
+
         <fa-icon [icon]="faInfo" (click)="showMore(prescription)" style="cursor: pointer; font-size: 2em;"></fa-icon>
     </div>
 
     <h1>Expired</h1>
+
+    <p *ngIf="getExpiredPrescriptions()?.length === 0">
+        There are no expired prescriptions.
+    </p>
 
     <div class="prescriptions-container expired" *ngFor="let prescription of getExpiredPrescriptions()">
         <div>

@@ -6,13 +6,13 @@ export function convertToShortDate(stringDate: string): string {
     const mm = date.getMonth() + 1;
     const yyyy = date.getFullYear();
 
-    let day = dd.toString();
+    let day = `${dd}`;
 
     if (dd < 10) {
-        day = `0${dd};`
+        day = `0${dd}`;
     }
 
-    let month = mm.toString();
+    let month = `${mm}`;
 
     if (mm < 10) {
         month = `0${mm}`;

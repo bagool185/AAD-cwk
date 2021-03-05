@@ -21,12 +21,11 @@
         </div>
 
         <div *ngIf="isPatient()" class="links-container">
-            <button mat-button [routerLink]="['/gp-dashboard']">Prescriptions</button>
+            <button mat-button [routerLink]="['/prescriptions']">Prescriptions</button>
             <button mat-button [routerLink]="['/gp-dashboard']">Appointments</button>
         </div>
         <div *ngIf="isPharmacist()" class="links-container">
             <button mat-button [routerLink]="['/pharmacist-dashboard']">Prescription requests</button>
-            <button mat-button [routerLink]="['/gp-dashboard']">Appointments</button>
         </div>
         <div *ngIf="isTechnician()" class="links-container">
             <button mat-button [routerLink]="['/technician-dashboard']">Pick ups</button>
