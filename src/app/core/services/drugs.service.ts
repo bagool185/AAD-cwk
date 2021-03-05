@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
+import { IResponseWrapper } from '@shared/models/api';
 import { IDrug } from '@shared/models/medication';
 import { Observable } from 'rxjs';
 
@@ -15,8 +16,8 @@ export class DrugsService {
     this.baseURL = `${environment.apiBaseURL}/drugs`;
   }
 
-  getAll(): Observable<IDrug[]> {
-    return this.httpClient.get<IDrug[]>(this.baseURL);
+  getAll(): Observable<IResponseWrapper<IDrug[]>> {
+    return this.httpClient.get<IResponseWrapper<IDrug[]>>(this.baseURL);
   }
 
   create(drug: IDrug): Observable<any> {

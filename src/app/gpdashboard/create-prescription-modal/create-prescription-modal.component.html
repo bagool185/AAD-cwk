@@ -12,21 +12,20 @@
                 
                 <mat-form-field>
                     <mat-select placeholder="Patient" formControlName="patientEmail" required>
-                    <mat-option *ngFor="let patient of patients" [value]='patient'>{{patient}}</mat-option>
+                        <mat-option *ngFor="let patient of patients" [value]='patient'>{{patient}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-select placeholder="Pharmacist" formControlName="pharmacistEmail" required>
-                    <mat-option [value]="'pharmacist123@gmail.com'"> pharmacist123@gmail.com</mat-option>
-                    <mat-option [value]="'pharmacist152@gmail.com'"> pharmacist152@gmail.com</mat-option>
-                    <mat-option [value]="'pharmacist1233@gmail.com'">pharmacist1233@gmail.co</mat-option>
-                    <mat-option [value]="'pharmacist673@gmail.com'"> pharmacist673@gmail.com</mat-option>
+                        <mat-option *ngFor="let pharmacist of pharmacists" [value]='pharmacist.email'>{{pharmacist.firstName}} {{pharmacist.lastName}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field class="full-width-input">
-                    <input matInput type="text" placeholder="Drug name" formControlName="drugName" required>
+                <mat-form-field>
+                    <mat-select placeholder="Drug" formControlName="drugName" required>
+                        <mat-option *ngFor="let drug of drugs" [value]='drug.drugName'>{{drug.drugName}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
 
                 <mat-form-field class="full-width-input">
@@ -39,9 +38,16 @@
 
                 <mat-form-field class="full-width-input">
                     <mat-label>End date</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="endDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="full-width-input">
+                    <mat-label>Next pick up</mat-label>
+                    <input matInput [matDatepicker]="pickUpPicker" formControlName="nextPickUp">
+                    <mat-datepicker-toggle matSuffix [for]="pickUpPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #pickUpPicker></mat-datepicker>
                 </mat-form-field>
 
             </form>

@@ -21,32 +21,32 @@ export class PharmacistDashboardComponent implements OnInit {
   constructor(private readonly dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.prescriptionRequests = [
-      {
-        dose: '20mg',
-        drugName: 'Scopolamine',
-        endDate: '10/05/2022',
-        id: 12321,
-        instructions: 'Take once a day.',
-        nextPickUp: '24/02/2021',
-        patientEmail: 'tpratchett@gmail.com',
-        pharmacistEmail: 'gmartin@gmail.com',
-        requestDate: '23/02/2021',
-        status: PrescriptionRequestStatuses.Accepted
-      },
-      {
-        dose: '20mg',
-        drugName: 'Hydrocodone',
-        endDate: '16/04/2021',
-        id: 12321,
-        instructions: 'Take once a day.',
-        nextPickUp: '27/02/2021',
-        patientEmail: 'tpratchett@gmail.com',
-        pharmacistEmail: 'gmartin@gmail.com',
-        requestDate: '25/02/2021',
-        status: PrescriptionRequestStatuses.Pending
-      }
-    ];
+    // this.prescriptionRequests = [
+    //   {
+    //     dose: '20mg',
+    //     drugName: 'Scopolamine',
+    //     endDate: '10/05/2022',
+    //     id: 12321,
+    //     instructions: 'Take once a day.',
+    //     nextPickUp: '24/02/2021',
+    //     patientEmail: 'tpratchett@gmail.com',
+    //     pharmacistEmail: 'gmartin@gmail.com',
+    //     requestDate: '23/02/2021',
+    //     status: PrescriptionRequestStatuses.Accepted
+    //   },
+    //   {
+    //     dose: '20mg',
+    //     drugName: 'Hydrocodone',
+    //     endDate: '16/04/2021',
+    //     id: 12321,
+    //     instructions: 'Take once a day.',
+    //     nextPickUp: '27/02/2021',
+    //     patientEmail: 'tpratchett@gmail.com',
+    //     pharmacistEmail: 'gmartin@gmail.com',
+    //     requestDate: '25/02/2021',
+    //     status: PrescriptionRequestStatuses.Pending
+    //   }
+    // ];
   }
 
   getPendingPrescriptionRequests() {

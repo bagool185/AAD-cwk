@@ -1,6 +1,6 @@
 <button mat-button type="button" class="button make-prescription-button" (click)="createPrescriptionRequest()">Make prescription request</button>
 
-<div class="data-container" *ngIf="dataSource != null && dataSource.filter.length > 0; else noPrescriptionsContainer">
+<div class="data-container" *ngIf="prescriptionRequests != null && prescriptionRequests.length > 0; else noPrescriptionsContainer">
     <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <ng-container matColumnDef="requestDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Request date</mat-header-cell>
@@ -44,7 +44,6 @@
                 </button>
             </mat-cell>
         </ng-container>
-
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

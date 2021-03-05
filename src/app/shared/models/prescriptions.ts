@@ -24,8 +24,7 @@ export interface IPatientPrescriptions {
 }
 
 export enum PrescriptionRequestStatuses {
-    Accepted = "Accepted",
-    Denied = "Denied",
+    Processed = "Processed",
     Pending = "Pending"
 }
 
@@ -36,8 +35,14 @@ export interface IPrescriptionRequest {
     dose: string;
     instructions: string;
     endDate: string;
+    GPEmail: string;
     nextPickUp: string;
     requestDate: string;
     id: number;
     status: PrescriptionRequestStatuses;
+}
+
+export interface IPrescriptions {
+    pending: IPrescriptionRequest[];
+    processed: IPrescriptionRequest[];
 }

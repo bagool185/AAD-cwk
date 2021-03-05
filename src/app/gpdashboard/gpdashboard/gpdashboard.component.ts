@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from '@services/auth.service';
 import { PrescriptionsService } from '@services/prescriptions.service';
-import { IPrescriptionRequest } from '@shared/models/prescriptions';
+import { IPrescriptionRequest, PrescriptionRequestStatuses } from '@shared/models/prescriptions';
 import { PrescriptionRequestModalComponent } from '@shared/prescription-request-modal/prescription-request-modal.component';
 import { CreatePrescriptionModalComponent } from '../create-prescription-modal/create-prescription-modal.component';
 import { ScheduleBloodTestModalComponent } from '../schedule-blood-test-modal/schedule-blood-test-modal.component';
@@ -16,10 +16,12 @@ import { ScheduleBloodTestModalComponent } from '../schedule-blood-test-modal/sc
   templateUrl: './gpdashboard.component.html',
   styleUrls: ['./gpdashboard.component.scss']
 })
-export class GPDashboardComponent implements OnInit {
+export class GPDashboardComponent implements OnInit, AfterViewInit {
 
   readonly displayedColumns = ['requestDate', 'drugName', 'pharmacistEmail', 'patientEmail', 'status', 'details', 'requestBloodTest'];
   dataSource!: MatTableDataSource<IPrescriptionRequest>;
+
+  prescriptionRequests!: IPrescriptionRequest[];
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
@@ -40,20 +42,26 @@ export class GPDashboardComponent implements OnInit {
       return;
     }
 
+
     this.prescriptionsService.getPrescriptionRequests(userEmail).subscribe(
       (res) => {
-        setTimeout(() => {
+        this.prescriptionRequests = res.data.pending.map(p => {
+          p.status = PrescriptionRequestStatuses.Pending
+          return p
+        });
 
-          this.dataSource = new MatTableDataSource<IPrescriptionRequest>(res);
-                
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        }, 5);
+        this.prescriptionRequests.concat(res.data.processed.map(p => {
+          p.status = PrescriptionRequestStatuses.Processed
+          return p;
+        }));
+
+        this.renderTable();
+
       },
       (err) => {
 
         if (err?.status != 404) {
-          this.snackBar.open("Could not retrieve prescription requests. Please try again later.", 'Dismiss');
+          this.prescriptionRequests = [];
         }
       });
   }
@@ -67,10 +75,42 @@ export class GPDashboardComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    this.renderTable();
+  }
+
+  private renderTable() {
+    setTimeout(() => {
+      this.dataSource = new MatTableDataSource<IPrescriptionRequest>(this.prescriptionRequests);
+            
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }, 5);
+  }
+
   createPrescriptionRequest() {
-    this.dialog.open(CreatePrescriptionModalComponent, {
+    const dialogRef = this.dialog.open(CreatePrescriptionModalComponent, {
       minWidth: '400px'
     });
+
+    dialogRef.afterClosed().subscribe(
+      (dialogRes) => {
+        if (dialogRes != null) {
+          this.prescriptionsService.createPrescriptionRequest(dialogRes).subscribe(
+            (res) => {
+              this.prescriptionRequests.push(dialogRes);
+              this.renderTable();
+            },
+            (err) => {
+              if (err?.status === 400) {
+                this.snackBar.open(`Drug not in store.`, 'Dismiss', {duration: 5000})
+              }
+              console.log(err);
+            }
+          )
+        }
+      }
+    )
   }
 
   scheduleBloodTest(patientEmail: string) { 
