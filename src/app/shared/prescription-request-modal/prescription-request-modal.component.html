@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5>{{prescriptionRequest.drugName}} - {{prescriptionRequest.dose}}</h5>
+    <h5>{{prescriptionRequest.drugName}} ({{drugData?.commonName}}) - {{prescriptionRequest.dose}}</h5>
     <button type="button" class="close" (click)="close()">x</button>
 </div>
 
@@ -10,6 +10,18 @@
     <p><span style="font-weight: bold;">End date</span> {{prescriptionRequest.endDate}}</p>
     <p><span style="font-weight: bold;">Next pick-up</span> {{prescriptionRequest.nextPickUp}}</p>
     <p><span style="font-weight: bold;">Status</span> {{prescriptionRequest.status}}</p>
+
+    <hr>
+
+    <div *ngIf="drugData != null">
+        <p><span style="font-weight: bold;">Blood results required</span></p>
+        <ul>
+            <li *ngFor="let bloods of drugData.bloodsRequired">
+                {{bloods}}
+            </li>
+        </ul>
+    </div>
+    
 </div>
 
 <div class="modal-footer">
